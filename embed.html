@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCB Calendar Widget</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body style="margin: 0; padding: 20px; background: #f5f5f5;">
+    <!-- This is an example of how to embed the calendar on any website -->
+    <div id="wcb-calendar-widget"></div>
+
+    <script src="js/calendar.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            WCBCalendar.init({
+                // Replace with your iCal URL
+                icalUrl: 'https://calendar.google.com/calendar/ical/YOUR_CALENDAR_ID%40gmail.com/public/basic.ics',
+                elementId: 'wcb-calendar-widget',
+                theme: 'light',
+                maxEvents: 10,
+                daysAhead: 30
+            });
+        });
+    </script>
+</body>
+</html>
