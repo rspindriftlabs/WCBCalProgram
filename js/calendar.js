@@ -7,14 +7,17 @@
       elementId: 'wcb-calendar',
       theme: 'light',
       maxEvents: 10,
-      daysAhead: 30,
+      daysAhead: 90,
       showPastEvents: false,
       timeZone: 'UTC',
-      cacheExpiry: 3600000 // 1 hour in milliseconds
+      cacheExpiry: 86400000, // 24 hours in milliseconds for daily refresh
+      refreshInterval: 3600000 // 1 hour refresh check
     },
 
     events: [],
     currentDate: new Date(),
+    refreshTimer: null,
+    lastRefreshTime: null,
 
     /**
      * Initialize the calendar widget
@@ -38,6 +41,39 @@
 
       // Load and render calendar
       this.loadCalendar();
+
+      // Set up automatic daily refresh
+      this.setupAutoRefresh();
+    },
+
+    /**
+     * Set up automatic refresh every hour (will only fetch if cache expired)
+     */
+    setupAutoRefresh: function() {
+      console.log('WCBCalendar: Auto-refresh enabled (checks every hour, refreshes daily)');
+      
+      // Refresh check every hour
+      this.refreshTimer = setInterval(() => {
+        const now = Date.now();
+        const lastRefresh = this.lastRefreshTime || 0;
+        
+        // Only refresh if 24 hours have passed
+        if (now - lastRefresh > this.config.cacheExpiry) {
+          console.log('WCBCalendar: Daily cache expired, refreshing...');
+          this.loadCalendar();
+          this.lastRefreshTime = now;
+        }
+      }, this.config.refreshInterval);
+    },
+
+    /**
+     * Clean up refresh timer (call on unmount if needed)
+     */
+    destroy: function() {
+      if (this.refreshTimer) {
+        clearInterval(this.refreshTimer);
+        this.refreshTimer = null;
+      }
     },
 
     /**
@@ -45,12 +81,25 @@
      */
     loadCalendar: function() {
       const container = document.getElementById(this.config.elementId);
+      if (!container) return;
+      
       container.innerHTML = '<div class="wcb-loading">Loading calendar...</div>';
 
       this.fetchiCal(this.config.icalUrl)
         .then(data => {
-          this.events = this.parseICalData(data);
+          // Use iCalParser if available, otherwise fall back to basic parsing
+          if (typeof window.iCalParser !== 'undefined') {
+            this.events = window.iCalParser.parse(data, this.config.daysAhead);
+            console.log(`WCBCalendar: Parsed ${this.events.length} events (including recurring)`);
+          } else {
+            console.warn('WCBCalendar: iCalParser not loaded, using basic parsing (recurring events may not expand)');
+            this.events = this.parseICalData(data);
+          }
+          
+          // Filter events by date range
+          this.events = this.filterEvents(this.events);
           this.renderCalendar();
+          this.lastRefreshTime = Date.now();
         })
         .catch(error => {
           console.error('WCBCalendar: Error loading calendar', error);
@@ -65,8 +114,10 @@
       // Check cache first
       const cached = this.getFromCache('wcb-calendar-' + url);
       if (cached) {
-        return Promise.resolve(cached);
+        console.log('WCBCalendar: Using cached calendar data');\n        return Promise.resolve(cached);
       }
+
+      console.log('WCBCalendar: Fetching fresh calendar data from', url);
 
       // Try direct fetch first
       return fetch(url)
@@ -80,22 +131,15 @@
         })
         .catch(error => {
           // If direct fails due to CORS, try with proxy
-          console.warn('Direct fetch failed, trying CORS proxy...', error);
+          console.warn('WCBCalendar: Direct fetch failed, trying CORS proxy...', error);
           const proxyUrl = 'https://cors-anywhere.herokuapp.com/' + url;
-          return fetch(proxyUrl)
-            .then(response => {
-              if (!response.ok) throw new Error(`Proxy HTTP ${response.status}`);
-              return response.text();
-            })
-            .then(data => {
-              this.saveToCache('wcb-calendar-' + url, data);
-              return data;
-            });
+          return fetch(proxyUrl)\n            .then(response => {
+              if (!response.ok) throw new Error(`Proxy HTTP ${response.status}`);\n              return response.text();\n            })\n            .then(data => {\n              this.saveToCache('wcb-calendar-' + url, data);\n              return data;\n            });
         });
     },
 
     /**
-     * Parse iCal data
+     * Parse iCal data (fallback for when iCalParser is not available)
      */
     parseICalData: function(icalText) {
       const events = [];
@@ -140,7 +184,7 @@
         }
       }
 
-      return this.filterEvents(events);
+      return events;
     },
 
     /**
@@ -218,6 +262,8 @@
      */
     renderCalendar: function() {
       const container = document.getElementById(this.config.elementId);
+      if (!container) return;
+      
       let html = '<div class="wcb-calendar">';
 
       // Header with navigation
@@ -430,7 +476,7 @@
         };
         localStorage.setItem(key, JSON.stringify(cacheData));
       } catch (e) {
-        console.warn('Cache save failed:', e);
+        console.warn('WCBCalendar: Cache save failed:', e);
       }
     },
 
@@ -439,6 +485,7 @@
      */
     attachEventListeners: function() {
       const container = document.getElementById(this.config.elementId);
+      if (!container) return;
       
       const prevBtn = container.querySelector('.wcb-calendar-prev');
       const nextBtn = container.querySelector('.wcb-calendar-next');
