@@ -1,0 +1,291 @@
+/* WCB Calendar Embed Styles */
+
+/* Root styles */
+.wcb-calendar-container {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Light theme (default) */
+.wcb-calendar-light {
+  --primary-color: #3b82f6;
+  --secondary-color: #f3f4f6;
+  --text-color: #1f2937;
+  --text-light: #6b7280;
+  --border-color: #e5e7eb;
+  --hover-bg: #f9fafb;
+  --today-bg: #dbeafe;
+  --event-bg: #fef3c7;
+}
+
+/* Dark theme */
+.wcb-calendar-dark {
+  --primary-color: #60a5fa;
+  --secondary-color: #1f2937;
+  --text-color: #f3f4f6;
+  --text-light: #d1d5db;
+  --border-color: #374151;
+  --hover-bg: #111827;
+  --today-bg: #1e3a8a;
+  --event-bg: #78350f;
+}
+
+/* Calendar container */
+.wcb-calendar {
+  background: var(--secondary-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.wcb-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: white;
+  border-bottom: 1px solid var(--border-color);
+  gap: 10px;
+}
+
+.wcb-calendar-light .wcb-calendar-header {
+  background: white;
+}
+
+.wcb-calendar-dark .wcb-calendar-header {
+  background: #111827;
+}
+
+.wcb-calendar-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+  flex: 1;
+  text-align: center;
+}
+
+.wcb-calendar-btn {
+  padding: 8px 12px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.wcb-calendar-btn:hover {
+  opacity: 0.9;
+}
+
+.wcb-calendar-btn:active {
+  opacity: 0.8;
+}
+
+/* Weekday labels */
+.wcb-calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: var(--border-color);
+  padding: 1px;
+}
+
+.wcb-calendar-weekday {
+  padding: 10px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text-light);
+  text-transform: uppercase;
+  background: white;
+}
+
+.wcb-calendar-dark .wcb-calendar-weekday {
+  background: #111827;
+}
+
+/* Calendar grid */
+.wcb-calendar-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border-color);
+  padding: 1px;
+}
+
+.wcb-calendar-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+
+.wcb-calendar-day {
+  aspect-ratio: 1;
+  background: white;
+  padding: 8px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.wcb-calendar-dark .wcb-calendar-day {
+  background: #111827;
+}
+
+.wcb-calendar-day:hover:not(.wcb-calendar-empty):not(.wcb-calendar-other-month) {
+  background: var(--hover-bg);
+}
+
+.wcb-calendar-day.wcb-calendar-empty {
+  background: var(--secondary-color);
+  cursor: default;
+}
+
+.wcb-calendar-day.wcb-calendar-other-month {
+  opacity: 0.4;
+}
+
+.wcb-calendar-day.wcb-calendar-today {
+  background: var(--today-bg);
+  font-weight: 600;
+}
+
+.wcb-calendar-day.wcb-calendar-has-events {
+  border-left: 3px solid var(--event-bg);
+}
+
+.wcb-calendar-day-number {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.wcb-calendar-event-count {
+  font-size: 10px;
+  padding: 2px 4px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 3px;
+  margin-top: 4px;
+  width: fit-content;
+}
+
+/* Events section */
+.wcb-calendar-events {
+  padding: 20px;
+  background: white;
+}
+
+.wcb-calendar-dark .wcb-calendar-events {
+  background: #111827;
+}
+
+.wcb-calendar-events h3 {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.wcb-events-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wcb-event-item {
+  padding: 12px;
+  background: var(--secondary-color);
+  border-left: 3px solid var(--primary-color);
+  border-radius: 4px;
+}
+
+.wcb-event-title {
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 4px;
+}
+
+.wcb-event-time {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+
+.wcb-event-description {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.wcb-event-location {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.wcb-no-events {
+  text-align: center;
+  color: var(--text-light);
+  padding: 20px;
+  margin: 0;
+}
+
+.wcb-calendar-error {
+  padding: 20px;
+  text-align: center;
+  color: #dc2626;
+  background: #fee2e2;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .wcb-calendar-container {
+    padding: 10px;
+  }
+
+  .wcb-calendar-header {
+    padding: 15px;
+    flex-wrap: wrap;
+  }
+
+  .wcb-calendar-title {
+    font-size: 16px;
+    order: 2;
+    width: 100%;
+  }
+
+  .wcb-calendar-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .wcb-calendar-day {
+    min-height: 60px;
+    padding: 6px;
+  }
+
+  .wcb-calendar-day-number {
+    font-size: 12px;
+  }
+
+  .wcb-calendar-weekday {
+    font-size: 10px;
+    padding: 8px;
+  }
+}

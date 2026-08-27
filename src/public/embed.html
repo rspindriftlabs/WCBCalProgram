@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCB Calendar</title>
+    <link rel="stylesheet" href="embed.css">
+</head>
+<body>
+    <div id="wcb-calendar" class="wcb-calendar-container">
+        <!-- Calendar will be inserted here -->
+    </div>
+    <script src="embed.js"></script>
+    <script>
+        // Initialize calendar
+        document.addEventListener('DOMContentLoaded', function() {
+            WCBCalendar.init({
+                elementId: 'wcb-calendar',
+                apiUrl: window.location.origin,
+                calendarId: 'primary' // or your specific calendar ID
+            });
+        });
+    </script>
+</body>
+</html>
