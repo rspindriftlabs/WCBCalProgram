@@ -1,0 +1,31 @@
+name: Sync Calendar Feed
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # Auto-runs every 30 minutes
+  workflow_dispatch: # Enables manual run button
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch and sanitize events
+        run: |
+          npm install node-ical rrule
+          node fetch-events.js
+        env:
+          ICAL_URL: ${{ secrets.ICAL_URL }}
+
+      - name: Commit updated JSON
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Automated calendar sync [skip ci]"
+          file_pattern: "events.json"
