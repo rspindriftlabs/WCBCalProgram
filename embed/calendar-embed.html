@@ -1,5 +1,7 @@
+
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,28 +9,163 @@
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
   <style>
     /* Simple styles for the embeddable calendar */
-    :root{
-      --max-width:900px;
-      --accent:#1e90ff;
-      --muted:#666;
+    :root {
+      --max-width: 900px;
+      --primary: #366231;
+      --background: #FFFFFF;
+      --text-on-bg: #000000;
+      --text-on-primary: #FFFFFF;
+      --border: #FFFFFF;
     }
-    *{box-sizing:border-box}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:16px;color:#222}
-    header{text-align:center;margin-bottom:16px}
-    #calendar{max-width:var(--max-width);margin:0 auto 24px}
-    .subtitle{color:var(--muted);margin:6px 0}
-    main{display:flex;flex-direction:column;align-items:center}
-    #event-list{max-width:var(--max-width);margin:0 auto;padding:0 12px}
-    .event-item{padding:8px 0;border-bottom:1px solid #eee}
-    .event-title{font-weight:600}
-    .event-meta{color:var(--muted);font-size:0.95em}
-    @media(min-width:900px){
-      main{flex-direction:row;align-items:flex-start;gap:24px}
-      #calendar{flex:1}
-      #event-list{width:320px}
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      overflow: hidden;
+      height: auto;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      overflow: hidden;
+      height: auto;
+      font-family: Georgia, 'Times New Roman', serif;
+      margin: 16px;
+      color: var(--text-on-bg);
+      background: var(--background);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 16px
+    }
+
+    header h1 {
+      color: #000000;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    #calendar {
+      max-width: 100%;
+      width: var(--max-width);
+      margin: 0 auto 24px
+    }
+
+    .subtitle {
+      color: #000000;
+      margin: 6px 0
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: auto;
+      min-height: 0;
+      max-width: 100%;
+      overflow: hidden;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    #event-list {
+      max-width: 100%;
+      width: var(--max-width);
+      margin: 0 auto;
+      padding: 12px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    #event-list h2 {
+      color: var(--primary);
+      margin-top: 0;
+    }
+
+    .event-item {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--background)
+    }
+
+    .event-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .event-title {
+      font-weight: 600;
+      color: var(--text-on-bg);
+    }
+
+    .event-meta {
+      color: var(--primary);
+      font-size: 0.95em
+    }
+
+    .fc-header-toolbar {
+      flex-wrap: wrap;
+      row-gap: 8px;
+    }
+
+    /* FullCalendar theme overrides */
+    .fc {
+      --fc-border-color: var(--primary);
+      --fc-daygrid-event-dot-color: var(--primary);
+      --fc-list-event-hover-bg-color: var(--background);
+      --fc-today-bg-color: rgba(54, 98, 49, 0.12);
+      --fc-page-bg-color: #ffffff;
+      --fc-neutral-bg-color: var(--background);
+      --fc-button-text-color: var(--text-on-primary);
+      --fc-button-bg-color: var(--primary);
+      --fc-button-border-color: var(--primary);
+      --fc-button-hover-bg-color: #2a4d26;
+      --fc-button-hover-border-color: #2a4d26;
+      --fc-button-active-bg-color: #21401e;
+      --fc-button-active-border-color: #21401e;
+      --fc-event-bg-color: var(--primary);
+      --fc-event-border-color: var(--primary);
+      --fc-event-text-color: var(--text-on-primary);
+      color: var(--text-on-bg);
+    }
+
+    .fc .fc-toolbar-title {
+      color: #000000;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    .fc .fc-col-header-cell {
+      background: var(--primary);
+      color: var(--text-on-primary);
+    }
+
+    .fc .fc-col-header-cell-cushion {
+      color: var(--text-on-primary);
+    }
+
+    @media(min-width:900px) {
+      main {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 24px
+      }
+
+      #calendar {
+        flex: 1;
+        order: 1;
+      }
+
+      #event-list {
+        width: 320px;
+        order: 2;
+      }
     }
   </style>
 </head>
+
 <body>
   <header>
     <h1>WCB Events</h1>
@@ -40,9 +177,6 @@
     <aside id="event-list" aria-label="Upcoming events"></aside>
   </main>
 
-  <footer>
-    <small>Data source: <a href="https://raw.githubusercontent.com/rspindriftlabs/WCBCalProgram/main/events.json" target="_blank" rel="noopener">events.json</a></small>
-  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <script>
@@ -71,19 +205,24 @@
      function renderEventList(list){
         const container = document.getElementById('event-list');
         container.innerHTML = '<h2>Upcoming</h2>';
-        // show only future events and sort so the soonest event is first
+
         const now = new Date();
-        const upcoming = list
-          .filter(e => {
-            try { return new Date(e.start) >= now; }
-            catch { return false; }
-          })
-          .sort((a,b) => new Date(a.start) - new Date(b.start));
 
-        if(!upcoming.length){ container.innerHTML += '<p>No upcoming events</p>'; return }
+        // Only include events that haven't started yet (or are still ongoing
+        // if they have an end date in the future), then sort ascending so the
+        // soonest upcoming event appears at the very top.
+        const upcoming = list.filter(e => {
+          const end = e.end ? new Date(e.end) : new Date(e.start);
+          return end >= now;
+        });
 
+        const sortedList = [...upcoming].sort((a, b) => new Date(a.start) - new Date(b.start));
+
+        if(!sortedList.length){ container.innerHTML += '<p>No upcoming events</p>'; return }
+
+        // Limit the rendering to the first N events
         const maxEvents = 5;
-        const limitedList = upcoming.slice(0, maxEvents);
+        const limitedList = sortedList.slice(0, maxEvents);
 
         limitedList.forEach(e => {
           const div = document.createElement('div');
@@ -115,6 +254,7 @@
           const calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listWeek' },
+            height: 'auto',
             events: events,
             eventDidMount: info => {
               if (info.event.extendedProps.location) {
@@ -150,4 +290,5 @@
     })();
   </script>
 </body>
+
 </html>
