@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WCB Calendar</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+  <style>
+    /* Simple styles for the embeddable calendar */
+    :root{
+      --max-width:900px;
+      --accent:#1e90ff;
+      --muted:#666;
+    }
+    *{box-sizing:border-box}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:16px;color:#222}
+    header{text-align:center;margin-bottom:16px}
+    #calendar{max-width:var(--max-width);margin:0 auto 24px}
+    .subtitle{color:var(--muted);margin:6px 0}
+    main{display:flex;flex-direction:column;align-items:center}
+    #event-list{max-width:var(--max-width);margin:0 auto;padding:0 12px}
+    .event-item{padding:8px 0;border-bottom:1px solid #eee}
+    .event-title{font-weight:600}
+    .event-meta{color:var(--muted);font-size:0.95em}
+    @media(min-width:900px){
+      main{flex-direction:row;align-items:flex-start;gap:24px}
+      #calendar{flex:1}
+      #event-list{width:320px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WCB Events</h1>
+    <p class="subtitle">An embeddable calendar driven from events.json in this repository.</p>
+  </header>
+
+  <main>
+    <div id="calendar"></div>
+    <aside id="event-list" aria-label="Upcoming events"></aside>
+  </main>
+
+  <footer>
+    <small>Data source: <a href="https://raw.githubusercontent.com/rspindriftlabs/WCBCalProgram/main/events.json" target="_blank" rel="noopener">events.json</a></small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script>
+    // Simple calendar loader for events.json
+    (function(){
+      const EVENTS_URL = 'https://raw.githubusercontent.com/rspindriftlabs/WCBCalProgram/main/events.json';
+
+      async function fetchEvents(){
+        // Cache-bust to reduce stale CDN responses
+        const res = await fetch(EVENTS_URL + '?t=' + Date.now(), { cache: 'no-store' });
+        if(!res.ok) throw new Error('Failed to load events.json: ' + res.status);
+        return res.json();
+      }
+
+      function toFullCalendarEvents(list){
+        return list.map(e => ({
+          id: e.id,
+          title: e.title,
+          start: e.start,
+          end: e.end,
+          allDay: (e.start && e.start.endsWith('T00:00:00.000Z')),
+          extendedProps: { location: e.location }
+        }));
+      }
+
+      function renderEventList(list){
+        const container = document.getElementById('event-list');
+        container.innerHTML = '<h2>Upcoming</h2>';
+        if(!list.length){ container.innerHTML += '<p>No upcoming events</p>'; return }
+        list.forEach(e => {
+          const div = document.createElement('div');
+          div.className = 'event-item';
+          const title = document.createElement('div');
+          title.className = 'event-title';
+          title.textContent = e.title;
+          const meta = document.createElement('div');
+          meta.className = 'event-meta';
+          const start = new Date(e.start);
+          const end = e.end ? new Date(e.end) : null;
+          const dateStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) + (end ? ' — ' + end.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) : '');
+          meta.textContent = dateStr + (e.location ? ' · ' + e.location : '');
+          div.appendChild(title);
+          div.appendChild(meta);
+          container.appendChild(div);
+        });
+      }
+
+      async function init(){
+        try{
+          const raw = await fetchEvents();
+          const events = toFullCalendarEvents(raw);
+
+          // render fullcalendar
+          const calendarEl = document.getElementById('calendar');
+          const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listWeek' },
+            events: events,
+            eventDidMount: info => {
+              if (info.event.extendedProps.location) {
+                info.el.title = info.event.extendedProps.location;
+              }
+            },
+            // improve accessibility: announce when events are focused
+            eventClick: info => {
+              // show simple alert with details (replace with modal if desired)
+              const loc = info.event.extendedProps.location || 'No location';
+              const start = info.event.start ? info.event.start.toLocaleString() : '';
+              const end = info.event.end ? info.event.end.toLocaleString() : '';
+              const when = start + (end ? ' — ' + end : '');
+              alert(`${info.event.title}\n${when}\n${loc}`);
+            }
+          });
+          calendar.render();
+
+          // render list
+          renderEventList(raw);
+
+        }catch(err){
+          console.error(err);
+          const el = document.getElementById('calendar');
+          el.innerHTML = '<p style="color:#900;padding:16px">Failed to load calendar data.</p>';
+          const list = document.getElementById('event-list');
+          list.innerHTML = '<p style="color:#900">Failed to load events.</p>';
+        }
+      }
+
+      // init on DOM ready
+      if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+    })();
+  </script>
+</body>
+</html>
