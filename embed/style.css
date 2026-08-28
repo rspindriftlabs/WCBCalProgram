@@ -1,0 +1,21 @@
+/* Simple styles for the embeddable calendar */
+:root{
+  --max-width:900px;
+  --accent:#1e90ff;
+  --muted:#666;
+}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:16px;color:#222}
+header{text-align:center;margin-bottom:16px}
+#calendar{max-width:var(--max-width);margin:0 auto 24px}
+.subtitle{color:var(--muted);margin:6px 0}
+main{display:flex;flex-direction:column;align-items:center}
+#event-list{max-width:var(--max-width);margin:0 auto;padding:0 12px}
+.event-item{padding:8px 0;border-bottom:1px solid #eee}
+.event-title{font-weight:600}
+.event-meta{color:var(--muted);font-size:0.95em}
+@media(min-width:900px){
+  main{flex-direction:row;align-items:flex-start;gap:24px}
+  #calendar{flex:1}
+  #event-list{width:320px}
+}

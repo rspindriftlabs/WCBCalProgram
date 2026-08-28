@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WCB Calendar</title>
+  <link rel="stylesheet" href="./style.css">
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>WCB Events</h1>
+    <p class="subtitle">An embeddable calendar driven from events.json in this repository.</p>
+  </header>
+
+  <main>
+    <div id="calendar"></div>
+    <aside id="event-list" aria-label="Upcoming events"></aside>
+  </main>
+
+  <footer>
+    <small>Data source: <a href="https://raw.githubusercontent.com/rspindriftlabs/WCBCalProgram/main/events.json" target="_blank" rel="noopener">events.json</a></small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script src="./calendar.js"></script>
+</body>
+</html>
