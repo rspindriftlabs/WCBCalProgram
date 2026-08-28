@@ -43,7 +43,7 @@
     }
 
     header h1 {
-      color: #000000;
+      color: var(--text-on-bg);
       font-family: Georgia, 'Times New Roman', serif;
     }
 
@@ -54,7 +54,7 @@
     }
 
     .subtitle {
-      color: #000000;
+      color: var(--text-on-bg);
       margin: 6px 0
     }
 
@@ -75,7 +75,7 @@
       width: var(--max-width);
       margin: 0 auto;
       padding: 12px;
-      background: #ffffff;
+      background: var(--background);
       border: 1px solid var(--border);
       border-radius: 8px;
     }
@@ -116,7 +116,7 @@
       --fc-daygrid-event-dot-color: var(--primary);
       --fc-list-event-hover-bg-color: var(--background);
       --fc-today-bg-color: rgba(54, 98, 49, 0.12);
-      --fc-page-bg-color: #ffffff;
+      --fc-page-bg-color: var(--background);
       --fc-neutral-bg-color: var(--background);
       --fc-button-text-color: var(--text-on-primary);
       --fc-button-bg-color: var(--primary);
@@ -131,18 +131,38 @@
       color: var(--text-on-bg);
     }
 
+    /* Stronger overrides to ensure the primary/text colors apply when embedded */
     .fc .fc-toolbar-title {
-      color: #000000;
+      color: var(--text-on-bg) !important;
       font-family: Georgia, 'Times New Roman', serif;
     }
 
     .fc .fc-col-header-cell {
-      background: var(--primary);
-      color: var(--text-on-primary);
+      background: var(--primary) !important;
+      color: var(--text-on-primary) !important;
     }
 
     .fc .fc-col-header-cell-cushion {
-      color: var(--text-on-primary);
+      color: var(--text-on-primary) !important;
+    }
+
+    /* Make sure buttons and event elements use the defined colors */
+    .fc .fc-button {
+      color: var(--fc-button-text-color) !important;
+      background-color: var(--fc-button-bg-color) !important;
+      border-color: var(--fc-button-border-color) !important;
+    }
+
+    .fc .fc-button:hover {
+      background-color: var(--fc-button-hover-bg-color) !important;
+      border-color: var(--fc-button-hover-border-color) !important;
+    }
+
+    .fc .fc-event,
+    .fc .fc-event-main {
+      background-color: var(--fc-event-bg-color) !important;
+      border-color: var(--fc-event-border-color) !important;
+      color: var(--fc-event-text-color) !important;
     }
 
     @media(min-width:900px) {
