@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -191,15 +190,42 @@
         return res.json();
       }
 
+      // Helper: detect all-day (Google-style midnight UTC) and return date-only string
+      function isAllDayISO(s){
+        return typeof s === 'string' && s.endsWith('T00:00:00.000Z');
+      }
+
       function toFullCalendarEvents(list){
-        return list.map(e => ({
-          id: e.id,
-          title: e.title,
-          start: e.start,
-          end: e.end,
-          allDay: (e.start && e.start.endsWith('T00:00:00.000Z')),
-          extendedProps: { location: e.location }
-        }));
+        return list.map(e => {
+          const allDay = isAllDayISO(e.start) || (typeof e.start === 'string' && e.start.length === 10);
+          const start = allDay && typeof e.start === 'string' && e.start.length > 10 ? e.start.slice(0,10) : e.start;
+          const end = e.end ? (isAllDayISO(e.end) || (typeof e.end === 'string' && e.end.length === 10) ? e.end.slice(0,10) : e.end) : undefined;
+
+          return {
+            id: e.id,
+            title: e.title,
+            start: start,
+            end: end,
+            allDay: !!allDay,
+            extendedProps: { location: e.location }
+          };
+        });
+      }
+
+      // Parse an event date string for display and comparisons.
+      // If the source is a midnight-UTC ISO (Google all-day), create a local-midnight Date so it displays correctly.
+      function parseEventDateForDisplay(s){
+        if(!s) return null;
+        if(isAllDayISO(s)){
+          // Use the date portion and construct a local-midnight time so toLocaleDateString shows the intended date.
+          const dateOnly = s.slice(0,10);
+          return new Date(dateOnly + 'T00:00:00');
+        }
+        // If it's already a date-only string (YYYY-MM-DD), treat it as local-midnight as well
+        if(typeof s === 'string' && s.length === 10){
+          return new Date(s + 'T00:00:00');
+        }
+        return new Date(s);
       }
 
      function renderEventList(list){
@@ -212,11 +238,11 @@
         // if they have an end date in the future), then sort ascending so the
         // soonest upcoming event appears at the very top.
         const upcoming = list.filter(e => {
-          const end = e.end ? new Date(e.end) : new Date(e.start);
+          const end = e.end ? parseEventDateForDisplay(e.end) : parseEventDateForDisplay(e.start);
           return end >= now;
         });
 
-        const sortedList = [...upcoming].sort((a, b) => new Date(a.start) - new Date(b.start));
+        const sortedList = [...upcoming].sort((a, b) => parseEventDateForDisplay(a.start) - parseEventDateForDisplay(b.start));
 
         if(!sortedList.length){ container.innerHTML += '<p>No upcoming events</p>'; return }
 
@@ -232,8 +258,8 @@
           title.textContent = e.title;
           const meta = document.createElement('div');
           meta.className = 'event-meta';
-          const start = new Date(e.start);
-          const end = e.end ? new Date(e.end) : null;
+          const start = parseEventDateForDisplay(e.start);
+          const end = e.end ? parseEventDateForDisplay(e.end) : null;
           const dateStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) + (end ? ' — ' + end.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) : '');
           meta.textContent = dateStr + (e.location ? ' · ' + e.location : '');
           div.appendChild(title);
