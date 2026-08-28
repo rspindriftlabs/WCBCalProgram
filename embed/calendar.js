@@ -20,11 +20,24 @@
     }));
   }
 
-  function renderEventList(list){
+ function renderEventList(list){
     const container = document.getElementById('event-list');
     container.innerHTML = '<h2>Upcoming</h2>';
-    if(!list.length){ container.innerHTML += '<p>No upcoming events</p>'; return }
-    list.forEach(e => {
+    // show only future events and sort so the soonest event is first
+    const now = new Date();
+    const upcoming = list
+      .filter(e => {
+        try { return new Date(e.start) >= now; }
+        catch { return false; }
+      })
+      .sort((a,b) => new Date(a.start) - new Date(b.start));
+
+    if(!upcoming.length){ container.innerHTML += '<p>No upcoming events</p>'; return }
+
+    const maxEvents = 5;
+    const limitedList = upcoming.slice(0, maxEvents);
+
+    limitedList.forEach(e => {
       const div = document.createElement('div');
       div.className = 'event-item';
       const title = document.createElement('div');
@@ -40,6 +53,8 @@
       div.appendChild(meta);
       container.appendChild(div);
     });
+
+
   }
 
   async function init(){

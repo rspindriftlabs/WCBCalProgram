@@ -4,6 +4,7 @@ This folder contains a small embeddable calendar UI that reads events from event
 
 Files:
 - index.html — the embeddable page (uses FullCalendar)
+- calendar-embed.html — a single-file embeddable HTML (contains inline CSS/JS)
 - style.css — basic styles
 - calendar.js — fetches events.json and initializes the calendar + a simple upcoming list
 
