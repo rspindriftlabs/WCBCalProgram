@@ -2,7 +2,7 @@ name: Sync Calendar Feed
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # Auto-runs every 30 minutes
+    - cron: '0 0,12 * * *' # Runs at midnight (00:00) and noon (12:00) UTC daily
   workflow_dispatch: # Enables manual run button
 
 permissions:
