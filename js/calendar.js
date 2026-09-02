@@ -114,7 +114,8 @@
       // Check cache first
       const cached = this.getFromCache('wcb-calendar-' + url);
       if (cached) {
-        console.log('WCBCalendar: Using cached calendar data');\n        return Promise.resolve(cached);
+        console.log('WCBCalendar: Using cached calendar data');
+        return Promise.resolve(cached);
       }
 
       console.log('WCBCalendar: Fetching fresh calendar data from', url);
@@ -133,8 +134,15 @@
           // If direct fails due to CORS, try with proxy
           console.warn('WCBCalendar: Direct fetch failed, trying CORS proxy...', error);
           const proxyUrl = 'https://cors-anywhere.herokuapp.com/' + url;
-          return fetch(proxyUrl)\n            .then(response => {
-              if (!response.ok) throw new Error(`Proxy HTTP ${response.status}`);\n              return response.text();\n            })\n            .then(data => {\n              this.saveToCache('wcb-calendar-' + url, data);\n              return data;\n            });
+          return fetch(proxyUrl)
+            .then(response => {
+              if (!response.ok) throw new Error(`Proxy HTTP ${response.status}`);
+              return response.text();
+            })
+            .then(data => {
+              this.saveToCache('wcb-calendar-' + url, data);
+              return data;
+            });
         });
     },
 
@@ -197,6 +205,7 @@
         const year = parseInt(dateString.substring(0, 4));
         const month = parseInt(dateString.substring(4, 6));
         const day = parseInt(dateString.substring(6, 8));
+        // Return a Date at local midnight for that day
         return new Date(year, month - 1, day);
       } else if (dateString.length === 15) {
         // YYYYMMDDTHHmmss format
@@ -208,6 +217,7 @@
         const seconds = parseInt(dateString.substring(13, 15));
         return new Date(year, month - 1, day, hours, minutes, seconds);
       } else {
+        // Fallback - try letting JS parse it (handles Z/UTC timestamps)
         return new Date(dateString);
       }
     },
@@ -343,7 +353,7 @@
         if (hasEvents) classList.push('wcb-has-events');
 
         html += `
-          <div class="${classList.join(' ')}" data-date="${date.toISOString().split('T')[0]}">
+          <div class="${classList.join(' ')}" data-date="${this.formatLocalDate(date)}">
             <div class="wcb-day-number">${day}</div>
             ${hasEvents ? `<div class="wcb-event-indicator">${dayEvents.length}</div>` : ''}
           </div>
@@ -358,9 +368,9 @@
      * Get events for a specific date
      */
     getEventsForDate: function(date) {
-      const dateStr = date.toISOString().split('T')[0];
+      const dateStr = this.formatLocalDate(date);
       return this.events.filter(event => {
-        const eventStart = new Date(event.start).toISOString().split('T')[0];
+        const eventStart = this.formatLocalDate(new Date(event.start));
         return eventStart === dateStr;
       });
     },
@@ -425,6 +435,17 @@
         minute: '2-digit',
         hour12: true
       });
+    },
+
+    /**
+     * Format a date as YYYY-MM-DD using local timezone (avoids UTC shifts)
+     */
+    formatLocalDate: function(date) {
+      const d = new Date(date);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
     },
 
     /**
