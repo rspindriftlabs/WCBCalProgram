@@ -212,14 +212,38 @@
 
       // Helper: detect all-day (Google-style midnight UTC) and return date-only string
       function isAllDayISO(s){
-        return typeof s === 'string' && s.endsWith('T00:00:00.000Z');
+        return typeof s === 'string' && /T00:00:00(?:\.\d{1,3})?Z$/.test(s);
+      }
+
+      // Remove timezone information from an ISO string so the time is treated as a "floating" local time
+      // e.g. '2026-09-02T14:00:00Z' -> '2026-09-02T14:00:00'
+      function stripTimeZone(s){
+        if(typeof s !== 'string') return s;
+        return s.replace(/(?:Z|[+-]\d{2}(?::?\d{2})?)$/, '');
       }
 
       function toFullCalendarEvents(list){
         return list.map(e => {
           const allDay = isAllDayISO(e.start) || (typeof e.start === 'string' && e.start.length === 10);
-          const start = allDay && typeof e.start === 'string' && e.start.length > 10 ? e.start.slice(0,10) : e.start;
-          const end = e.end ? (isAllDayISO(e.end) || (typeof e.end === 'string' && e.end.length === 10) ? e.end.slice(0,10) : e.end) : undefined;
+
+          // For all-day events, use date-only strings (YYYY-MM-DD). For timed events,
+          // strip timezone information so the stored time is displayed as-is for every viewer.
+          let start;
+          if(allDay){
+            if(typeof e.start === 'string' && e.start.length > 10) start = e.start.slice(0,10); else start = e.start;
+          } else {
+            start = (typeof e.start === 'string') ? stripTimeZone(e.start) : e.start;
+          }
+
+          let end;
+          if(e.end){
+            const endAllDay = isAllDayISO(e.end) || (typeof e.end === 'string' && e.end.length === 10);
+            if(endAllDay){
+              end = (typeof e.end === 'string' && e.end.length > 10) ? e.end.slice(0,10) : e.end;
+            } else {
+              end = (typeof e.end === 'string') ? stripTimeZone(e.end) : e.end;
+            }
+          }
 
           return {
             id: e.id,
@@ -236,16 +260,22 @@
       // If the source is a midnight-UTC ISO (Google all-day), create a local-midnight Date so it displays correctly.
       function parseEventDateForDisplay(s){
         if(!s) return null;
+        if(s instanceof Date) return s;
         if(isAllDayISO(s)){
-          // Use the date portion and construct a local-midnight time so toLocaleDateString shows the intended date.
           const dateOnly = s.slice(0,10);
           return new Date(dateOnly + 'T00:00:00');
         }
-        // If it's already a date-only string (YYYY-MM-DD), treat it as local-midnight as well
         if(typeof s === 'string' && s.length === 10){
           return new Date(s + 'T00:00:00');
         }
+        // If it's a string without timezone (we've stripped timezone for floating times), construct directly
         return new Date(s);
+      }
+
+      function dateAddDays(d, days){
+        const nd = new Date(d.getTime());
+        nd.setDate(nd.getDate() + days);
+        return nd;
       }
 
      function renderEventList(list){
@@ -259,7 +289,7 @@
         // soonest upcoming event appears at the very top.
         const upcoming = list.filter(e => {
           const end = e.end ? parseEventDateForDisplay(e.end) : parseEventDateForDisplay(e.start);
-          return end >= now;
+          return end && end >= now;
         });
 
         const sortedList = [...upcoming].sort((a, b) => parseEventDateForDisplay(a.start) - parseEventDateForDisplay(b.start));
@@ -278,10 +308,33 @@
           title.textContent = e.title;
           const meta = document.createElement('div');
           meta.className = 'event-meta';
+
           const start = parseEventDateForDisplay(e.start);
-          const end = e.end ? parseEventDateForDisplay(e.end) : null;
-          const dateStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) + (end ? ' — ' + end.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) : '');
-          meta.textContent = dateStr + (e.location ? ' · ' + e.location : '');
+          let end = e.end ? parseEventDateForDisplay(e.end) : null;
+
+          let dateStr = '';
+          if(e.allDay){
+            // FullCalendar/Google often uses an exclusive end for all-day events (end = day after).
+            // For display purposes, show the inclusive end date (subtract one day if end was provided).
+            if(end){
+              const displayEnd = dateAddDays(end, -1);
+              const startStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
+              const endStr = displayEnd.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
+              dateStr = startStr === endStr ? startStr : (startStr + ' — ' + endStr);
+            } else {
+              dateStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
+            }
+          } else {
+            const startStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) + ' ' + start.toLocaleTimeString(undefined, {hour:'numeric',minute:'2-digit'});
+            if(end){
+              const endStr = end.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) + ' ' + end.toLocaleTimeString(undefined, {hour:'numeric',minute:'2-digit'});
+              dateStr = startStr + (end ? ' — ' + endStr : '');
+            } else {
+              dateStr = startStr;
+            }
+          }
+
+          meta.textContent = dateStr + (e.extendedProps && e.extendedProps.location ? ' · ' + e.extendedProps.location : '');
           div.appendChild(title);
           div.appendChild(meta);
           container.appendChild(div);
@@ -301,6 +354,8 @@
             initialView: 'dayGridMonth',
             headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listWeek' },
             height: 'auto',
+            // Treat calendar as local-time (we strip timezone info on events so times remain "floating")
+            timeZone: 'local',
             events: events,
             eventDidMount: info => {
               if (info.event.extendedProps.location) {
@@ -319,8 +374,8 @@
           });
           calendar.render();
 
-          // render list
-          renderEventList(raw);
+          // render list using the same event objects so allDay and timezone-stripping are consistent
+          renderEventList(events);
 
         }catch(err){
           console.error(err);
