@@ -11,17 +11,37 @@
 
   function toFullCalendarEvents(list){
     return list.map(e => {
-      // For all-day events stored as UTC midnight, convert to local date only
-      const isAllDay = e.start && e.start.endsWith('T00:00:00.000Z');
+      // Determine whether this should be treated as an all-day event by
+      // checking the local (viewer) wall-clock time. Previously we treated
+      // any UTC midnight as all-day which mis-classified events that were
+      // stored in GMT but actually represent an evening time in CT.
+      let isAllDay = false;
       let start = e.start;
       let end = e.end;
-      
-      if (isAllDay) {
-        // Extract just the date part and FullCalendar will treat it as all-day
-        start = e.start.split('T')[0];
-        end = e.end ? e.end.split('T')[0] : null;
+
+      if (e.start) {
+        try {
+          const startDate = new Date(e.start);
+          const h = startDate.getHours();
+          const m = startDate.getMinutes();
+          const s = startDate.getSeconds();
+          // If in the viewer's local timezone the time is exactly midnight,
+          // consider it an all-day event and pass only the date part to FullCalendar.
+          if (h === 0 && m === 0 && s === 0 && /T00:00:00/.test(e.start)) {
+            isAllDay = true;
+            start = e.start.split('T')[0];
+            end = e.end ? e.end.split('T')[0] : null;
+          }
+        } catch (err) {
+          // malformed date string, fall back to original behavior
+          isAllDay = e.start && e.start.endsWith('T00:00:00.000Z');
+          if (isAllDay) {
+            start = e.start.split('T')[0];
+            end = e.end ? e.end.split('T')[0] : null;
+          }
+        }
       }
-      
+
       return {
         id: e.id,
         title: e.title,
@@ -38,21 +58,22 @@
     container.innerHTML = '<h2>Upcoming</h2>';
     // show only future events and sort so the soonest event is first
     const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
     const upcoming = list
       .filter(e => {
-        try { 
-          // Use the date part for comparison to avoid timezone issues
-          const eventStart = e.start.split('T')[0];
-          const eventDate = new Date(eventStart);
-          const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-          return eventDate >= today; 
+        try {
+          // Use the viewer-local date for comparison to avoid timezone issues
+          const eventStartDate = new Date(e.start);
+          const eventDateOnly = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate());
+          return eventDateOnly >= today;
         }
         catch { return false; }
       })
       .sort((a,b) => {
-        const dateA = a.start.split('T')[0];
-        const dateB = b.start.split('T')[0];
-        return new Date(dateA) - new Date(dateB);
+        const dateA = new Date(a.start);
+        const dateB = new Date(b.start);
+        return dateA - dateB;
       });
 
     if(!upcoming.length){ container.innerHTML += '<p>No upcoming events</p>'; return }
@@ -68,11 +89,31 @@
       title.textContent = e.title;
       const meta = document.createElement('div');
       meta.className = 'event-meta';
-      const dateStr = e.start.split('T')[0];
-      const endDateStr = e.end ? e.end.split('T')[0] : null;
-      const startDate = new Date(dateStr);
-      const endDate = endDateStr ? new Date(endDateStr) : null;
-      const dateDisplay = startDate.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) + (endDate && endDateStr !== dateStr ? ' — ' + endDate.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) : '');
+
+      // Build display dates using the viewer-local Date so times show up correctly
+      let startDateObj, endDateObj;
+      if (e.start && !e.start.includes('T')) {
+        // date-only string (YYYY-MM-DD) -> construct local date to avoid timezone shifts
+        const [y,m,d] = e.start.split('-').map(Number);
+        startDateObj = new Date(y, m-1, d);
+      } else {
+        startDateObj = new Date(e.start);
+      }
+
+      if (e.end) {
+        if (!e.end.includes('T')) {
+          const [y,m,d] = e.end.split('-').map(Number);
+          endDateObj = new Date(y, m-1, d);
+        } else {
+          endDateObj = new Date(e.end);
+        }
+      } else {
+        endDateObj = null;
+      }
+
+      const dateDisplay = startDateObj.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'})
+        + (endDateObj && (endDateObj.getFullYear() !== startDateObj.getFullYear() || endDateObj.getMonth() !== startDateObj.getMonth() || endDateObj.getDate() !== startDateObj.getDate()) ? ' — ' + endDateObj.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) : '');
+
       meta.textContent = dateDisplay + (e.location ? ' · ' + e.location : '');
       div.appendChild(title);
       div.appendChild(meta);
