@@ -215,24 +215,17 @@
         return typeof s === 'string' && /T00:00:00(?:\.\d{1,3})?Z$/.test(s);
       }
 
-      // Remove timezone information from an ISO string so the time is treated as a "floating" local time
-      // e.g. '2026-09-02T14:00:00Z' -> '2026-09-02T14:00:00'
-      function stripTimeZone(s){
-        if(typeof s !== 'string') return s;
-        return s.replace(/(?:Z|[+-]\d{2}(?::?\d{2})?)$/, '');
-      }
-
       function toFullCalendarEvents(list){
         return list.map(e => {
           const allDay = isAllDayISO(e.start) || (typeof e.start === 'string' && e.start.length === 10);
 
-          // For all-day events, use date-only strings (YYYY-MM-DD). For timed events,
-          // strip timezone information so the stored time is displayed as-is for every viewer.
+          // For all-day events, use date-only strings (YYYY-MM-DD). 
+          // For timed events, keep the full ISO string with timezone so FullCalendar can properly convert to local time.
           let start;
           if(allDay){
             if(typeof e.start === 'string' && e.start.length > 10) start = e.start.slice(0,10); else start = e.start;
           } else {
-            start = (typeof e.start === 'string') ? stripTimeZone(e.start) : e.start;
+            start = e.start; // Keep original ISO string with timezone info
           }
 
           let end;
@@ -241,7 +234,7 @@
             if(endAllDay){
               end = (typeof e.end === 'string' && e.end.length > 10) ? e.end.slice(0,10) : e.end;
             } else {
-              end = (typeof e.end === 'string') ? stripTimeZone(e.end) : e.end;
+              end = e.end; // Keep original ISO string with timezone info
             }
           }
 
@@ -257,7 +250,6 @@
       }
 
       // Parse an event date string for display and comparisons.
-      // If the source is a midnight-UTC ISO (Google all-day), create a local-midnight Date so it displays correctly.
       function parseEventDateForDisplay(s){
         if(!s) return null;
         if(s instanceof Date) return s;
@@ -268,7 +260,7 @@
         if(typeof s === 'string' && s.length === 10){
           return new Date(s + 'T00:00:00');
         }
-        // If it's a string without timezone (we've stripped timezone for floating times), construct directly
+        // Parse ISO string properly - JavaScript's Date constructor handles timezones correctly
         return new Date(s);
       }
 
@@ -354,8 +346,7 @@
             initialView: 'dayGridMonth',
             headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listWeek' },
             height: 'auto',
-            // Treat calendar as local-time (we strip timezone info on events so times remain "floating")
-            timeZone: 'local',
+            timeZone: 'UTC',
             events: events,
             eventDidMount: info => {
               if (info.event.extendedProps.location) {
