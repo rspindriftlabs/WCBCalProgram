@@ -5,9 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WCB Calendar</title>
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
   <style>
-    /* Simple styles for the embeddable calendar */
+    /* Simple styles for the embeddable calendar (kept from original) */
     :root {
       --max-width: 900px;
       --primary: #366231;
@@ -35,27 +34,6 @@
       margin: 16px;
       color: var(--text-on-bg);
       background: var(--background);
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 16px
-    }
-
-    header h1 {
-      color: var(--text-on-bg);
-      font-family: Georgia, 'Times New Roman', serif;
-    }
-
-    #calendar {
-      max-width: 100%;
-      width: var(--max-width);
-      margin: 0 auto 24px
-    }
-
-    .subtitle {
-      color: var(--text-on-bg);
-      margin: 6px 0
     }
 
     main {
@@ -105,64 +83,10 @@
       font-size: 0.95em
     }
 
-    .fc-header-toolbar {
-      flex-wrap: wrap;
-      row-gap: 8px;
-    }
-
-    /* FullCalendar theme overrides */
-    .fc {
-      --fc-border-color: var(--primary);
-      --fc-daygrid-event-dot-color: var(--primary);
-      --fc-list-event-hover-bg-color: var(--background);
-      --fc-today-bg-color: rgba(54, 98, 49, 0.12);
-      --fc-page-bg-color: var(--background);
-      --fc-neutral-bg-color: var(--background);
-      --fc-button-text-color: var(--text-on-primary);
-      --fc-button-bg-color: var(--primary);
-      --fc-button-border-color: var(--primary);
-      --fc-button-hover-bg-color: #2a4d26;
-      --fc-button-hover-border-color: #2a4d26;
-      --fc-button-active-bg-color: #21401e;
-      --fc-button-active-border-color: #21401e;
-      --fc-event-bg-color: var(--primary);
-      --fc-event-border-color: var(--primary);
-      --fc-event-text-color: var(--text-on-primary);
-      color: var(--text-on-bg);
-    }
-
-    /* Stronger overrides to ensure the primary/text colors apply when embedded */
-    .fc .fc-toolbar-title {
-      color: var(--text-on-bg) !important;
-      font-family: Georgia, 'Times New Roman', serif;
-    }
-
-    .fc .fc-col-header-cell {
-      background: var(--primary) !important;
-      color: var(--text-on-primary) !important;
-    }
-
-    .fc .fc-col-header-cell-cushion {
-      color: var(--text-on-primary) !important;
-    }
-
-    /* Make sure buttons and event elements use the defined colors */
-    .fc .fc-button {
-      color: var(--fc-button-text-color) !important;
-      background-color: var(--fc-button-bg-color) !important;
-      border-color: var(--fc-button-border-color) !important;
-    }
-
-    .fc .fc-button:hover {
-      background-color: var(--fc-button-hover-bg-color) !important;
-      border-color: var(--fc-button-hover-border-color) !important;
-    }
-
-    .fc .fc-event,
-    .fc .fc-event-main {
-      background-color: var(--fc-event-bg-color) !important;
-      border-color: var(--fc-event-border-color) !important;
-      color: var(--fc-event-text-color) !important;
+    .event-desc {
+      color: #333;
+      font-size: 0.9em;
+      margin-top: 6px;
     }
 
     @media(min-width:900px) {
@@ -172,14 +96,8 @@
         gap: 24px
       }
 
-      #calendar {
-        flex: 1;
-        order: 1;
-      }
-
       #event-list {
-        width: 320px;
-        order: 2;
+        width: 720px;
       }
     }
   </style>
@@ -187,219 +105,169 @@
 
 <body>
 
-
   <main>
-    <div id="calendar"></div>
     <aside id="event-list" aria-label="Upcoming events"></aside>
   </main>
 
-  <!-- moment + moment-timezone + fullcalendar moment-timezone plugin for accurate named-timezone (DST-aware) rendering -->
+  <!-- moment + moment-timezone for accurate named-timezone (DST-aware) rendering -->
   <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.43/builds/moment-timezone-with-data.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/moment-timezone@6.1.8/index.global.min.js"></script>
   <script>
-    // Simple calendar loader for events.json
     (function(){
       const EVENTS_URL = 'https://raw.githubusercontent.com/rspindriftlabs/WCBCalProgram/main/events.json';
       const CENTRAL_TZ = 'America/Chicago';
 
       async function fetchEvents(){
-        // Cache-bust to reduce stale CDN responses
         const res = await fetch(EVENTS_URL + '?t=' + Date.now(), { cache: 'no-store' });
         if(!res.ok) throw new Error('Failed to load events.json: ' + res.status);
         return res.json();
       }
 
-      // Helper: detect all-day (Google-style midnight UTC) and return date-only string
+      // Treat as all-day only when the stored UTC midnight also corresponds to midnight in CENTRAL_TZ.
       function isAllDayISO(s){
-        return typeof s === 'string' && /T00:00:00(?:\.\d{1,3})?Z$/.test(s);
+        if (typeof s !== 'string') return false;
+        if (!/T00:00:00(?:\.\d{1,3})?Z$/.test(s)) return false;
+        try {
+          const m = moment.tz(s, 'UTC').tz(CENTRAL_TZ);
+          return m.hour() === 0 && m.minute() === 0 && m.second() === 0;
+        } catch (err){
+          return false;
+        }
       }
 
-      function toFullCalendarEvents(list){
+      function toEvents(list){
         return list.map(e => {
-          const allDay = isAllDayISO(e.start) || (typeof e.start === 'string' && e.start.length === 10);
+          const startRaw = e.start;
+          const endRaw = e.end;
 
-          // For all-day events, use date-only strings (YYYY-MM-DD). 
-          // For timed events, keep the full ISO string with timezone so FullCalendar can properly convert to Central time.
-          let start;
+          const allDay = isAllDayISO(startRaw) || (typeof startRaw === 'string' && startRaw.length === 10);
+
+          // Compute convenient moments for comparisons (UTC instants)
+          let startInstant = null;
+          let endInstant = null;
+
           if(allDay){
-            if(typeof e.start === 'string' && e.start.length > 10) start = e.start.slice(0,10); else start = e.start;
-          } else {
-            start = e.start; // Keep original ISO string with timezone info (moment-timezone plugin will convert accurately)
-          }
+            // For all-day events we will treat start as date-only in CENTRAL_TZ
+            const startDate = (typeof startRaw === 'string' && startRaw.length > 10) ? startRaw.slice(0,10) : startRaw;
+            // Represent the start instant as start of that day in CENTRAL_TZ
+            startInstant = moment.tz(startDate, 'YYYY-MM-DD', CENTRAL_TZ).startOf('day').utc();
 
-          let end;
-          if(e.end){
-            const endAllDay = isAllDayISO(e.end) || (typeof e.end === 'string' && e.end.length === 10);
-            if(endAllDay){
-              end = (typeof e.end === 'string' && e.end.length > 10) ? e.end.slice(0,10) : e.end;
+            if(endRaw){
+              const endDate = (typeof endRaw === 'string' && endRaw.length > 10) ? endRaw.slice(0,10) : endRaw;
+              // Google often uses exclusive end; keep it as provided (we'll display inclusive later)
+              endInstant = moment.tz(endDate, 'YYYY-MM-DD', CENTRAL_TZ).startOf('day').utc();
             } else {
-              end = e.end; // Keep original ISO string with timezone info
+              endInstant = moment(startInstant).endOf('day').utc();
             }
+          } else {
+            // Timed event - parse as UTC instant if possible
+            startInstant = (typeof startRaw === 'string') ? moment.utc(startRaw) : moment(startRaw);
+            if(endRaw) endInstant = (typeof endRaw === 'string') ? moment.utc(endRaw) : moment(endRaw);
+            else endInstant = moment(startInstant).add(1, 'hours');
           }
 
           return {
             id: e.id,
-            title: e.title,
-            start: start,
-            end: end,
-            allDay: !!allDay,
-            extendedProps: { location: e.location }
+            title: e.title || 'Busy',
+            startRaw,
+            endRaw,
+            allDay,
+            startInstant: startInstant ? startInstant.valueOf() : null,
+            endInstant: endInstant ? endInstant.valueOf() : null,
+            location: e.location || '',
+            description: e.description || ''
           };
         });
       }
 
-      // Parse an event date string for display and comparisons.
-      function parseEventDateForDisplay(s){
-        if(!s) return null;
-        if(s instanceof Date) return s;
-        if(isAllDayISO(s)){
-          const dateOnly = s.slice(0,10);
-          return new Date(dateOnly + 'T00:00:00');
-        }
-        if(typeof s === 'string' && s.length === 10){
-          return new Date(s + 'T00:00:00');
-        }
-        // Parse ISO string properly - JavaScript's Date constructor handles timezones correctly (UTC instant)
-        return new Date(s);
+      function formatCentralDateTimeFromInstant(ms){
+        return moment.utc(ms).tz(CENTRAL_TZ).format('MMM D, YYYY h:mm A') + ' CT';
       }
 
-      // Format a Date (an absolute instant) into Central Time date/time strings, DST-aware & accurate.
-      function formatCentralDate(d){
-        return d.toLocaleDateString('en-US', {year:'numeric', month:'short', day:'numeric', timeZone: CENTRAL_TZ});
-      }
-      function formatCentralTime(d){
-        return d.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit', timeZone: CENTRAL_TZ});
+      function formatCentralDateFromInstant(ms){
+        return moment.utc(ms).tz(CENTRAL_TZ).format('MMM D, YYYY');
       }
 
-      function dateAddDays(d, days){
-        const nd = new Date(d.getTime());
-        nd.setDate(nd.getDate() + days);
-        return nd;
-      }
-
-     function renderEventList(list){
+      function renderEventList(rawList){
         const container = document.getElementById('event-list');
         container.innerHTML = '<h2>Upcoming</h2>';
 
-        const now = new Date();
+        const now = Date.now();
 
-        // Only include events that haven't started yet (or are still ongoing
-        // if they have an end date in the future), then sort ascending so the
-        // soonest upcoming event appears at the very top.
-        const upcoming = list.filter(e => {
-          const end = e.end ? parseEventDateForDisplay(e.end) : parseEventDateForDisplay(e.start);
-          return end && end >= now;
-        });
+        const events = toEvents(rawList);
 
-        const sortedList = [...upcoming].sort((a, b) => parseEventDateForDisplay(a.start) - parseEventDateForDisplay(b.start));
+        const upcoming = events.filter(ev => ev.endInstant && ev.endInstant >= now);
+        upcoming.sort((a,b) => (a.startInstant || 0) - (b.startInstant || 0));
 
-        if(!sortedList.length){ container.innerHTML += '<p>No upcoming events</p>'; return }
+        if(!upcoming.length){ container.innerHTML += '<p>No upcoming events</p>'; return }
 
-        // Limit the rendering to the first N events
-        const maxEvents = 8;
-        const limitedList = sortedList.slice(0, maxEvents);
+        const maxEvents = 12;
+        const limited = upcoming.slice(0, maxEvents);
 
-        limitedList.forEach(e => {
+        limited.forEach(e => {
           const div = document.createElement('div');
           div.className = 'event-item';
+
           const title = document.createElement('div');
           title.className = 'event-title';
           title.textContent = e.title;
+
           const meta = document.createElement('div');
           meta.className = 'event-meta';
 
-          const start = parseEventDateForDisplay(e.start);
-          let end = e.end ? parseEventDateForDisplay(e.end) : null;
-
           let dateStr = '';
           if(e.allDay){
-            // FullCalendar/Google often uses an exclusive end for all-day events (end = day after).
-            // For display purposes, show the inclusive end date (subtract one day if end was provided).
-            // All-day events are date-only (no timezone conversion needed).
-            if(end){
-              const displayEnd = dateAddDays(end, -1);
-              const startStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
-              const endStr = displayEnd.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
-              dateStr = startStr === endStr ? startStr : (startStr + ' — ' + endStr);
+            // For display, convert stored inclusive/exclusive semantics: if endRaw present, show inclusive end as end - 1 day
+            if(e.endRaw){
+              const endDateStr = (typeof e.endRaw === 'string' && e.endRaw.length > 10) ? e.endRaw.slice(0,10) : e.endRaw;
+              const displayEnd = moment.tz(endDateStr, 'YYYY-MM-DD', CENTRAL_TZ).subtract(1, 'day');
+              const startDateStr = (typeof e.startRaw === 'string' && e.startRaw.length > 10) ? e.startRaw.slice(0,10) : e.startRaw;
+              const startDisplay = moment.tz(startDateStr, 'YYYY-MM-DD', CENTRAL_TZ);
+              dateStr = startDisplay.format('MMM D, YYYY');
+              if(!startDisplay.isSame(displayEnd, 'day')) dateStr += ' — ' + displayEnd.format('MMM D, YYYY');
             } else {
-              dateStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
+              dateStr = formatCentralDateFromInstant(e.startInstant);
             }
           } else {
-            // Timed events: always render in Central Time (CT), regardless of the viewer's local timezone,
-            // so displayed times are accurate and never shift into an adjacent day incorrectly.
-            const startStr = formatCentralDate(start) + ' ' + formatCentralTime(start) + ' CT';
-            if(end){
-              const endStr = formatCentralDate(end) + ' ' + formatCentralTime(end) + ' CT';
-              dateStr = startStr + ' — ' + endStr;
-            } else {
-              dateStr = startStr;
-            }
+            dateStr = formatCentralDateTimeFromInstant(e.startInstant);
+            if(e.endInstant) dateStr += ' — ' + formatCentralDateTimeFromInstant(e.endInstant);
           }
 
-          meta.textContent = dateStr + (e.extendedProps && e.extendedProps.location ? ' · ' + e.extendedProps.location : '');
+          meta.textContent = dateStr + (e.location ? ' · ' + e.location : '');
+
           div.appendChild(title);
           div.appendChild(meta);
+
+          if(e.description){
+            const desc = document.createElement('div');
+            desc.className = 'event-desc';
+            desc.textContent = e.description;
+            div.appendChild(desc);
+          }
+
+          // Click to show details (includes description)
+          div.style.cursor = 'pointer';
+          div.addEventListener('click', () => {
+            const loc = e.location || 'No location';
+            const desc = e.description || 'No description';
+            alert(`${e.title}\n${dateStr}\n${loc}\n\n${desc}`);
+          });
+
           container.appendChild(div);
         });
-
-
       }
 
       async function init(){
         try{
           const raw = await fetchEvents();
-          const events = toFullCalendarEvents(raw);
-
-          // render fullcalendar
-          const calendarEl = document.getElementById('calendar');
-          const calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listWeek' },
-            height: 'auto',
-            // Use named, DST-aware Central timezone via the moment-timezone plugin so
-            // event times displayed on the calendar grid are always accurate Central Time.
-            timeZone: CENTRAL_TZ,
-            plugins: [ FullCalendar.MomentTimezonePlugin ? FullCalendar.MomentTimezonePlugin : undefined ].filter(Boolean),
-            events: events,
-            eventDidMount: info => {
-              if (info.event.extendedProps.location) {
-                info.el.title = info.event.extendedProps.location;
-              }
-            },
-            // improve accessibility: announce when events are focused
-            eventClick: info => {
-              // show simple alert with details (replace with modal if desired), always in Central Time
-              const loc = info.event.extendedProps.location || 'No location';
-              let when = '';
-              if (info.event.allDay) {
-                const s = info.event.start ? info.event.start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) : '';
-                const en = info.event.end ? info.event.end.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) : '';
-                when = s + (en ? ' — ' + en : '');
-              } else {
-                const s = info.event.start ? (formatCentralDate(info.event.start) + ' ' + formatCentralTime(info.event.start) + ' CT') : '';
-                const en = info.event.end ? (formatCentralDate(info.event.end) + ' ' + formatCentralTime(info.event.end) + ' CT') : '';
-                when = s + (en ? ' — ' + en : '');
-              }
-              alert(`${info.event.title}\n${when}\n${loc}`);
-            }
-          });
-          calendar.render();
-
-          // render list using the same event objects so allDay and timezone-stripping are consistent
-          renderEventList(events);
-
+          renderEventList(raw);
         }catch(err){
           console.error(err);
-          const el = document.getElementById('calendar');
-          el.innerHTML = '<p style="color:#900;padding:16px">Failed to load calendar data.</p>';
           const list = document.getElementById('event-list');
           list.innerHTML = '<p style="color:#900">Failed to load events.</p>';
         }
       }
 
-      // init on DOM ready
       if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
     })();
   </script>
