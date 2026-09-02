@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WCB Calendar</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet" />
   <style>
     /* Simple styles for the embeddable calendar (kept from original) */
     :root {
@@ -46,6 +47,16 @@
       overflow: hidden;
       margin-bottom: 0;
       padding-bottom: 0;
+      gap: 24px;
+    }
+
+    #calendar {
+      width: 100%;
+      max-width: 900px;
+      background: var(--background);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 8px;
     }
 
     #event-list {
@@ -97,6 +108,10 @@
       }
 
       #event-list {
+        width: 360px;
+      }
+
+      #calendar {
         width: 720px;
       }
     }
@@ -106,12 +121,14 @@
 <body>
 
   <main>
+    <div id="calendar"></div>
     <aside id="event-list" aria-label="Upcoming events"></aside>
   </main>
 
   <!-- moment + moment-timezone for accurate named-timezone (DST-aware) rendering -->
   <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.43/builds/moment-timezone-with-data.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
   <script>
     (function(){
       const EVENTS_URL = 'https://raw.githubusercontent.com/rspindriftlabs/WCBCalProgram/main/events.json';
@@ -147,20 +164,16 @@
           let endInstant = null;
 
           if(allDay){
-            // For all-day events we will treat start as date-only in CENTRAL_TZ
             const startDate = (typeof startRaw === 'string' && startRaw.length > 10) ? startRaw.slice(0,10) : startRaw;
-            // Represent the start instant as start of that day in CENTRAL_TZ
             startInstant = moment.tz(startDate, 'YYYY-MM-DD', CENTRAL_TZ).startOf('day').utc();
 
             if(endRaw){
               const endDate = (typeof endRaw === 'string' && endRaw.length > 10) ? endRaw.slice(0,10) : endRaw;
-              // Google often uses exclusive end; keep it as provided (we'll display inclusive later)
               endInstant = moment.tz(endDate, 'YYYY-MM-DD', CENTRAL_TZ).startOf('day').utc();
             } else {
               endInstant = moment(startInstant).endOf('day').utc();
             }
           } else {
-            // Timed event - parse as UTC instant if possible
             startInstant = (typeof startRaw === 'string') ? moment.utc(startRaw) : moment(startRaw);
             if(endRaw) endInstant = (typeof endRaw === 'string') ? moment.utc(endRaw) : moment(endRaw);
             else endInstant = moment(startInstant).add(1, 'hours');
@@ -177,6 +190,42 @@
             location: e.location || '',
             description: e.description || ''
           };
+        });
+      }
+
+      function fcEventsFromRaw(list){
+        // Convert to FullCalendar event objects, converting times to CENTRAL_TZ offsets
+        return list.map(e => {
+          const fc = {
+            id: e.id,
+            title: e.title || 'Busy',
+            allDay: e.allDay,
+            extendedProps: {
+              location: e.location || '',
+              description: e.description || ''
+            }
+          };
+
+          if(e.allDay){
+            // Use date-only strings for all-day events (FullCalendar treats end as exclusive)
+            const startDate = (typeof e.startRaw === 'string' && e.startRaw.length > 10) ? e.startRaw.slice(0,10) : e.startRaw;
+            fc.start = startDate;
+            if(e.endRaw){
+              const endDate = (typeof e.endRaw === 'string' && e.endRaw.length > 10) ? e.endRaw.slice(0,10) : e.endRaw;
+              fc.end = endDate; // keep as provided (often exclusive)
+            }
+          } else {
+            // Convert stored UTC instant to a CENTRAL_TZ offset ISO string so calendar shows CT times
+            try {
+              if(e.startRaw) fc.start = moment.utc(e.startRaw).tz(CENTRAL_TZ).format();
+              if(e.endRaw) fc.end = moment.utc(e.endRaw).tz(CENTRAL_TZ).format();
+            }catch(err){
+              fc.start = e.startRaw;
+              if(e.endRaw) fc.end = e.endRaw;
+            }
+          }
+
+          return fc;
         });
       }
 
@@ -217,7 +266,6 @@
 
           let dateStr = '';
           if(e.allDay){
-            // For display, convert stored inclusive/exclusive semantics: if endRaw present, show inclusive end as end - 1 day
             if(e.endRaw){
               const endDateStr = (typeof e.endRaw === 'string' && e.endRaw.length > 10) ? e.endRaw.slice(0,10) : e.endRaw;
               const displayEnd = moment.tz(endDateStr, 'YYYY-MM-DD', CENTRAL_TZ).subtract(1, 'day');
@@ -257,14 +305,72 @@
         });
       }
 
+      let calendar = null;
+
       async function init(){
         try{
           const raw = await fetchEvents();
+
+          // Render the side list as before
           renderEventList(raw);
+
+          // Build FullCalendar events and mount the calendar
+          const eventsForCalendar = fcEventsFromRaw(toEvents(raw));
+
+          const calendarEl = document.getElementById('calendar');
+          calendarEl.innerHTML = ''; // clear
+
+          calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            },
+            height: 'auto',
+            navLinks: true,
+            weekNumbers: false,
+            editable: false,
+            selectable: false,
+            events: eventsForCalendar,
+            eventClick: function(info){
+              info.jsEvent.preventDefault();
+              const ev = info.event;
+              const loc = ev.extendedProps.location || 'No location';
+              const desc = ev.extendedProps.description || 'No description';
+
+              // Format date/time for display in CT
+              let when = '';
+              if(ev.allDay){
+                const start = ev.start;
+                const end = ev.end;
+                if(end){
+                  // FullCalendar's end for allDay is exclusive; show inclusive end as end - 1 day
+                  const displayEnd = moment(end).subtract(1, 'day');
+                  when = moment(start).format('MMM D, YYYY');
+                  if(!moment(start).isSame(displayEnd, 'day')) when += ' — ' + displayEnd.format('MMM D, YYYY');
+                } else {
+                  when = moment(start).format('MMM D, YYYY');
+                }
+                when += ' (All day)';
+              } else {
+                if(ev.start) when = moment(ev.start).format('MMM D, YYYY h:mm A') + ' CT';
+                if(ev.end) when += ' — ' + moment(ev.end).format('MMM D, YYYY h:mm A') + ' CT';
+              }
+
+              alert(`${ev.title}\n${when}\n${loc}\n\n${desc}`);
+            }
+          });
+
+          calendar.render();
+
         }catch(err){
           console.error(err);
           const list = document.getElementById('event-list');
           list.innerHTML = '<p style="color:#900">Failed to load events.</p>';
+
+          const calendarEl = document.getElementById('calendar');
+          calendarEl.innerHTML = '<p style="color:#900">Failed to load calendar.</p>';
         }
       }
 
