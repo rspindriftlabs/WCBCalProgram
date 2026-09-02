@@ -23,18 +23,20 @@ async function sync() {
           cleanEvents.push({
             id: `${event.uid}_${date.toISOString()}`,
             title: event.summary || 'Busy',
-            start: date,
-            end: new Date(date.getTime() + duration),
-            location: event.location || ''
+            start: date.toISOString(),
+            end: new Date(date.getTime() + duration).toISOString(),
+            location: event.location || '',
+            description: event.description || ''
           });
         });
       } else {
         cleanEvents.push({
           id: event.uid,
           title: event.summary || 'Busy',
-          start: event.start,
-          end: event.end,
-          location: event.location || ''
+          start: event.start instanceof Date ? event.start.toISOString() : event.start,
+          end: event.end instanceof Date ? event.end.toISOString() : event.end,
+          location: event.location || '',
+          description: event.description || ''
         });
       }
     }
