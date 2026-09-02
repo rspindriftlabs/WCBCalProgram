@@ -186,22 +186,23 @@
 </head>
 
 <body>
-  <header>
-    <h1>WCB Events</h1>
-    <p class="subtitle">An embeddable calendar driven from events.json in this repository.</p>
-  </header>
+
 
   <main>
     <div id="calendar"></div>
     <aside id="event-list" aria-label="Upcoming events"></aside>
   </main>
 
-
+  <!-- moment + moment-timezone + fullcalendar moment-timezone plugin for accurate named-timezone (DST-aware) rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.43/builds/moment-timezone-with-data.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/moment-timezone@6.1.8/index.global.min.js"></script>
   <script>
     // Simple calendar loader for events.json
     (function(){
       const EVENTS_URL = 'https://raw.githubusercontent.com/rspindriftlabs/WCBCalProgram/main/events.json';
+      const CENTRAL_TZ = 'America/Chicago';
 
       async function fetchEvents(){
         // Cache-bust to reduce stale CDN responses
@@ -220,12 +221,12 @@
           const allDay = isAllDayISO(e.start) || (typeof e.start === 'string' && e.start.length === 10);
 
           // For all-day events, use date-only strings (YYYY-MM-DD). 
-          // For timed events, keep the full ISO string with timezone so FullCalendar can properly convert to local time.
+          // For timed events, keep the full ISO string with timezone so FullCalendar can properly convert to Central time.
           let start;
           if(allDay){
             if(typeof e.start === 'string' && e.start.length > 10) start = e.start.slice(0,10); else start = e.start;
           } else {
-            start = e.start; // Keep original ISO string with timezone info
+            start = e.start; // Keep original ISO string with timezone info (moment-timezone plugin will convert accurately)
           }
 
           let end;
@@ -260,8 +261,16 @@
         if(typeof s === 'string' && s.length === 10){
           return new Date(s + 'T00:00:00');
         }
-        // Parse ISO string properly - JavaScript's Date constructor handles timezones correctly
+        // Parse ISO string properly - JavaScript's Date constructor handles timezones correctly (UTC instant)
         return new Date(s);
+      }
+
+      // Format a Date (an absolute instant) into Central Time date/time strings, DST-aware & accurate.
+      function formatCentralDate(d){
+        return d.toLocaleDateString('en-US', {year:'numeric', month:'short', day:'numeric', timeZone: CENTRAL_TZ});
+      }
+      function formatCentralTime(d){
+        return d.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit', timeZone: CENTRAL_TZ});
       }
 
       function dateAddDays(d, days){
@@ -289,7 +298,7 @@
         if(!sortedList.length){ container.innerHTML += '<p>No upcoming events</p>'; return }
 
         // Limit the rendering to the first N events
-        const maxEvents = 5;
+        const maxEvents = 8;
         const limitedList = sortedList.slice(0, maxEvents);
 
         limitedList.forEach(e => {
@@ -308,6 +317,7 @@
           if(e.allDay){
             // FullCalendar/Google often uses an exclusive end for all-day events (end = day after).
             // For display purposes, show the inclusive end date (subtract one day if end was provided).
+            // All-day events are date-only (no timezone conversion needed).
             if(end){
               const displayEnd = dateAddDays(end, -1);
               const startStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
@@ -317,10 +327,12 @@
               dateStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
             }
           } else {
-            const startStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) + ' ' + start.toLocaleTimeString(undefined, {hour:'numeric',minute:'2-digit'});
+            // Timed events: always render in Central Time (CT), regardless of the viewer's local timezone,
+            // so displayed times are accurate and never shift into an adjacent day incorrectly.
+            const startStr = formatCentralDate(start) + ' ' + formatCentralTime(start) + ' CT';
             if(end){
-              const endStr = end.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) + ' ' + end.toLocaleTimeString(undefined, {hour:'numeric',minute:'2-digit'});
-              dateStr = startStr + (end ? ' — ' + endStr : '');
+              const endStr = formatCentralDate(end) + ' ' + formatCentralTime(end) + ' CT';
+              dateStr = startStr + ' — ' + endStr;
             } else {
               dateStr = startStr;
             }
@@ -346,7 +358,10 @@
             initialView: 'dayGridMonth',
             headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listWeek' },
             height: 'auto',
-            timeZone: 'UTC',
+            // Use named, DST-aware Central timezone via the moment-timezone plugin so
+            // event times displayed on the calendar grid are always accurate Central Time.
+            timeZone: CENTRAL_TZ,
+            plugins: [ FullCalendar.MomentTimezonePlugin ? FullCalendar.MomentTimezonePlugin : undefined ].filter(Boolean),
             events: events,
             eventDidMount: info => {
               if (info.event.extendedProps.location) {
@@ -355,11 +370,18 @@
             },
             // improve accessibility: announce when events are focused
             eventClick: info => {
-              // show simple alert with details (replace with modal if desired)
+              // show simple alert with details (replace with modal if desired), always in Central Time
               const loc = info.event.extendedProps.location || 'No location';
-              const start = info.event.start ? info.event.start.toLocaleString() : '';
-              const end = info.event.end ? info.event.end.toLocaleString() : '';
-              const when = start + (end ? ' — ' + end : '');
+              let when = '';
+              if (info.event.allDay) {
+                const s = info.event.start ? info.event.start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) : '';
+                const en = info.event.end ? info.event.end.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) : '';
+                when = s + (en ? ' — ' + en : '');
+              } else {
+                const s = info.event.start ? (formatCentralDate(info.event.start) + ' ' + formatCentralTime(info.event.start) + ' CT') : '';
+                const en = info.event.end ? (formatCentralDate(info.event.end) + ' ' + formatCentralTime(info.event.end) + ' CT') : '';
+                when = s + (en ? ' — ' + en : '');
+              }
               alert(`${info.event.title}\n${when}\n${loc}`);
             }
           });
