@@ -132,12 +132,31 @@
   <script>
     (function(){
       const EVENTS_URL = 'https://raw.githubusercontent.com/rspindriftlabs/WCBCalProgram/main/events.json';
+      const GITHUB_API_EVENTS = 'https://api.github.com/repos/rspindriftlabs/WCBCalProgram/contents/events.json?ref=main';
       const CENTRAL_TZ = 'America/Chicago';
 
+      // Try the raw.githubusercontent URL first, then fall back to the GitHub API (decoding base64)
       async function fetchEvents(){
-        const res = await fetch(EVENTS_URL + '?t=' + Date.now(), { cache: 'no-store' });
-        if(!res.ok) throw new Error('Failed to load events.json: ' + res.status);
-        return res.json();
+        const rawUrl = EVENTS_URL + '?t=' + Date.now();
+        try{
+          const res = await fetch(rawUrl, { cache: 'no-store' });
+          if(res.ok) return res.json();
+          console.warn('raw fetch failed, status=', res.status);
+        }catch(err){
+          console.warn('raw fetch failed', err && err.message);
+        }
+
+        // Fallback: use GitHub API to fetch file contents (returns base64 content)
+        try{
+          const res2 = await fetch(GITHUB_API_EVENTS, { cache: 'no-store' });
+          if(!res2.ok) throw new Error('GitHub API fetch failed: ' + res2.status);
+          const body = await res2.json();
+          if(!body.content) throw new Error('No content in GitHub API response');
+          const decoded = atob(body.content.replace(/\n/g, ''));
+          return JSON.parse(decoded);
+        }catch(err){
+          throw new Error('Failed to load events.json via raw or GitHub API: ' + (err && err.message));
+        }
       }
 
       // Treat as all-day only when the stored UTC midnight also corresponds to midnight in CENTRAL_TZ.
@@ -207,7 +226,6 @@
           };
 
           if(e.allDay){
-            // Use date-only strings for all-day events (FullCalendar treats end as exclusive)
             const startDate = (typeof e.startRaw === 'string' && e.startRaw.length > 10) ? e.startRaw.slice(0,10) : e.startRaw;
             fc.start = startDate;
             if(e.endRaw){
@@ -215,10 +233,9 @@
               fc.end = endDate; // keep as provided (often exclusive)
             }
           } else {
-            // Convert stored UTC instant to a CENTRAL_TZ offset ISO string so calendar shows CT times
             try {
-              if(e.startRaw) fc.start = moment.utc(e.startRaw).tz(CENTRAL_TZ).format();
-              if(e.endRaw) fc.end = moment.utc(e.endRaw).tz(CENTRAL_TZ).format();
+              if(e.startRaw) fc.start = moment.utc(e.startRaw).tz(CENTRAL_TZ).format('YYYY-MM-DDTHH:mm:ssZ');
+              if(e.endRaw) fc.end = moment.utc(e.endRaw).tz(CENTRAL_TZ).format('YYYY-MM-DDTHH:mm:ssZ');
             }catch(err){
               fc.start = e.startRaw;
               if(e.endRaw) fc.end = e.endRaw;
@@ -346,16 +363,16 @@
                 const end = ev.end;
                 if(end){
                   // FullCalendar's end for allDay is exclusive; show inclusive end as end - 1 day
-                  const displayEnd = moment(end).subtract(1, 'day');
-                  when = moment(start).format('MMM D, YYYY');
-                  if(!moment(start).isSame(displayEnd, 'day')) when += ' — ' + displayEnd.format('MMM D, YYYY');
+                  const displayEnd = moment(end).tz(CENTRAL_TZ).subtract(1, 'day');
+                  when = moment(start).tz(CENTRAL_TZ).format('MMM D, YYYY');
+                  if(!moment(start).tz(CENTRAL_TZ).isSame(displayEnd, 'day')) when += ' — ' + displayEnd.format('MMM D, YYYY');
                 } else {
-                  when = moment(start).format('MMM D, YYYY');
+                  when = moment(start).tz(CENTRAL_TZ).format('MMM D, YYYY');
                 }
                 when += ' (All day)';
               } else {
-                if(ev.start) when = moment(ev.start).format('MMM D, YYYY h:mm A') + ' CT';
-                if(ev.end) when += ' — ' + moment(ev.end).format('MMM D, YYYY h:mm A') + ' CT';
+                if(ev.start) when = moment(ev.start).tz(CENTRAL_TZ).format('MMM D, YYYY h:mm A') + ' CT';
+                if(ev.end) when += ' — ' + moment(ev.end).tz(CENTRAL_TZ).format('MMM D, YYYY h:mm A') + ' CT';
               }
 
               alert(`${ev.title}\n${when}\n${loc}\n\n${desc}`);
