@@ -10,28 +10,47 @@
     return res.json();
   }
 
-  // Helper: detect all-day (Google-style midnight UTC) and return date-only string
-  function isAllDayISO(s){
-    return typeof s === 'string' && /T00:00:00(?:\.\d{1,3})?Z$/.test(s);
+  // Decide whether a start/end pair represents an all-day event.
+  // Treat pure date-only strings (YYYY-MM-DD) as all-day.
+  // Treat midnight-UTC pairs as all-day only if the range spans whole days (end - start is whole multiples of 24h).
+  function isAllDayPair(startStr, endStr){
+    if(typeof startStr !== 'string') return false;
+    // date-only
+    if(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(startStr)) return true;
+
+    // explicit UTC midnight pattern
+    const midnightUtc = /T00:00:00(?:\.\d{1,3})?Z$/;
+    if(midnightUtc.test(startStr)){
+      if(typeof endStr === 'string' && midnightUtc.test(endStr)){
+        try{
+          const s = new Date(startStr);
+          const e = new Date(endStr);
+          const msPerDay = 24 * 60 * 60 * 1000;
+          if(e > s && ((e - s) % msPerDay) === 0) return true;
+        }catch(_){}
+      }
+      // don't assume midnight-Z alone implies all-day when events originate from calendars
+      return false;
+    }
+    return false;
   }
 
   function toFullCalendarEvents(list){
     return list.map(e => {
-      const allDay = isAllDayISO(e.start) || (typeof e.start === 'string' && e.start.length === 10);
+      const allDay = isAllDayPair(e.start, e.end);
 
       // For all-day events, use date-only strings (YYYY-MM-DD).
       // For timed events, keep the full ISO string with timezone so FullCalendar can properly convert to Central time.
       let start;
       if(allDay){
-        if(typeof e.start === 'string' && e.start.length > 10) start = e.start.slice(0,10); else start = e.start;
+        start = (typeof e.start === 'string' && e.start.length > 10) ? e.start.slice(0,10) : e.start;
       } else {
-        start = e.start; // Keep original ISO string with timezone info
+        start = e.start;
       }
 
       let end;
       if(e.end){
-        const endAllDay = isAllDayISO(e.end) || (typeof e.end === 'string' && e.end.length === 10);
-        if(endAllDay){
+        if(allDay){
           end = (typeof e.end === 'string' && e.end.length > 10) ? e.end.slice(0,10) : e.end;
         } else {
           end = e.end;
@@ -50,17 +69,13 @@
   }
 
   // Parse an event date string for display and comparisons.
+  // Only treat pure YYYY-MM-DD strings as date-only. Everything else is parsed as an instant.
   function parseEventDateForDisplay(s){
     if(!s) return null;
     if(s instanceof Date) return s;
-    if(isAllDayISO(s)){
-      const dateOnly = s.slice(0,10);
-      return new Date(dateOnly + 'T00:00:00');
-    }
-    if(typeof s === 'string' && s.length === 10){
+    if(typeof s === 'string' && /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(s)){
       return new Date(s + 'T00:00:00');
     }
-    // Parse ISO string properly - JavaScript's Date constructor handles timezones correctly (UTC instant)
     return new Date(s);
   }
 
