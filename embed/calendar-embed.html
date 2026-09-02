@@ -233,33 +233,29 @@
       }
 
       // Decide whether this start/end represent an all-day event.
-      // RULES:
-      // - If start.kind === 'date' (YYYY-MM-DD) => all-day.
-      // - Otherwise, it's a timed event (not all-day).
-      function isAllDayPair(startVal){
-        const s = readValue(startVal);
-        // Only explicit date-only format is all-day
-        return s.kind === 'date';
+      // Check if both start AND end are at midnight UTC (00:00:00.000Z)
+      function isAllDayEvent(startVal, endVal){
+        if(typeof startVal !== 'string' || typeof endVal !== 'string') return false;
+        // Match ISO strings that end at midnight UTC
+        const midnightUTC = /T00:00:00(\.\d+)?Z?$/;
+        return midnightUTC.test(startVal) && midnightUTC.test(endVal);
       }
 
       // Convert input list to FullCalendar events.
       function toFullCalendarEvents(list){
         return list.map(e => {
-          const allDay = isAllDayPair(e.start);
+          const allDay = isAllDayEvent(e.start, e.end);
 
           // start/end normalization
           let startOut, endOut;
-          const s = readValue(e.start);
-          const en = readValue(e.end);
 
           if(allDay){
-            // All-day events: use YYYY-MM-DD strings
-            startOut = s.raw;
-            if(en && en.raw){
-              endOut = en.raw;
-            } else {
-              endOut = e.end;
-            }
+            // All-day events: convert ISO midnight times to YYYY-MM-DD format
+            // Extract the date portion from ISO string
+            const startDate = e.start.substring(0, 10);
+            const endDate = e.end.substring(0, 10);
+            startOut = startDate;
+            endOut = endDate;
           } else {
             // Timed events: preserve as-is to keep timezone info
             startOut = e.start;
@@ -339,10 +335,11 @@
 
           let dateStr = '';
           if(e.allDay){
-            // All-day events: display the actual date range (no adjustment needed)
-            if(end){
+            // All-day events: display the actual date range
+            if(end && e.end !== e.start){
               const startStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
-              const endStr = end.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
+              // For multi-day events, end date is exclusive in FullCalendar, but display is already correct from YYYY-MM-DD format
+              const endStr = new Date(end.getTime() - 86400000).toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
               dateStr = startStr === endStr ? startStr : (startStr + ' — ' + endStr);
             } else {
               dateStr = start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
@@ -397,8 +394,14 @@
               let when = '';
               if (info.event.allDay) {
                 const s = info.event.start ? info.event.start.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) : '';
-                const en = info.event.end ? info.event.end.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'}) : '';
-                when = s + (en ? ' — ' + en : '');
+                if(info.event.end && info.event.end.toDateString() !== info.event.start.toDateString()){
+                  // Multi-day: end is exclusive, so subtract a day for display
+                  const endDate = new Date(info.event.end.getTime() - 86400000);
+                  const en = endDate.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
+                  when = s + (en ? ' — ' + en : '');
+                } else {
+                  when = s;
+                }
               } else {
                 const s = info.event.start ? (formatCentralDate(info.event.start) + ' ' + formatCentralTime(info.event.start) + ' CT') : '';
                 const en = info.event.end ? (formatCentralDate(info.event.end) + ' ' + formatCentralTime(info.event.end) + ' CT') : '';
