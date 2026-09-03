@@ -1,347 +1,11 @@
 [
   {
-    "id": "7cuc811j0i8goni9jaog5vinbg@google.com",
-    "title": "Slyde Factory",
-    "start": "2026-10-31T00:00:00.000Z",
-    "end": "2026-11-01T00:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://www.facebook.com/slydefactory/\">https://www.facebook.com/slydefactory/</a>"
-  },
-  {
-    "id": "354o82bsc7e706l7i30kb6dmgn@google.com",
-    "title": "$5k SuperPro - Music City Raceway",
-    "start": "2026-09-26T21:00:00.000Z",
-    "end": "2026-09-27T04:59:00.000Z",
-    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
-    "description": "https://www.musiccityraceway.com/racing-schedule\nOpen: 4pm\nEliminations: 7pm to finish"
-  },
-  {
-    "id": "58t9eakcnoj2343ip8ekim6pcd@google.com",
-    "title": "Remember When Car Show",
-    "start": "2026-09-19T15:00:00.000Z",
-    "end": "2026-09-19T19:00:00.000Z",
-    "location": "265 W Thompson Ln, Murfreesboro, TN 37129, USA",
-    "description": "<a href=\"https://www.facebook.com/photo/?fbid=1044608184860854&amp;set=a.157835036871511\">https://www.facebook.com/photo/?fbid=1044608184860854&amp;set=a.157835036871511</a>"
-  },
-  {
-    "id": "3gark60q27mkr3gjdh43lvoe2h@google.com",
-    "title": "Music City Raceway - Test & Tune",
-    "start": "2026-09-08T23:00:00.000Z",
-    "end": "2026-09-09T04:59:00.000Z",
-    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
-    "description": "<a href=\"https://www.google.com/url?q=https://www.musiccityraceway.com/racing-schedule&amp;sa=D&amp;source=calendar&amp;ust=1788652996699789&amp;usg=AOvVaw0lfwrw6NNAlwjp7qvJAuue\" target=\"_blank\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens at 6pm<br>Eliminations: 8pm to finish"
-  },
-  {
-    "id": "57tfmt3fb2fqsrsq2b7jeapik3@google.com",
-    "title": "Corvettes of Clarksville Car Show",
-    "start": "2026-09-12T15:00:00.000Z",
-    "end": "2026-09-12T19:00:00.000Z",
-    "location": "722 College St, Clarksville, TN 37040, USA",
-    "description": "<a href=\"https://www.corvettesofclarksville.com/about-1-1\">https://www.corvettesofclarksville.com/about-1-1</a>"
-  },
-  {
-    "id": "5pcekmjhcct9t6rq7gd6qmmeav@google.com",
-    "title": "Donuts with duPont",
-    "start": "2026-08-29T00:00:00.000Z",
-    "end": "2026-08-30T00:00:00.000Z",
-    "location": "212 Alligood Way, Lebanon, TN 37090, USA",
-    "description": "8am - 11am"
-  },
-  {
-    "id": "6usq11lq4l2frqmnlsn6adj054@google.com",
-    "title": "NASAville Thanksgiving Run Racing",
-    "start": "2026-11-13T00:00:00.000Z",
-    "end": "2026-11-16T00:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://members.drivenasa.com/events/5352\">https://members.drivenasa.com/events/5352</a>"
-  },
-  {
-    "id": "3irj1s81ughppcagdl2dh2ri30@google.com",
-    "title": "First Church Nashville Car & Truck Show",
-    "start": "2026-09-26T13:00:00.000Z",
-    "end": "2026-09-26T19:00:00.000Z",
-    "location": "First United Pentecostal Church Of Nashville, 7512 Charlotte Pike, Nashville, TN 37209, USA",
-    "description": "<a href=\"https://www.facebook.com/photo?fbid=10238067893169316&amp;set=pcb.2578488172604119\">https://www.facebook.com/photo?fbid=10238067893169316&amp;set=pcb.2578488172604119</a><br><a href=\"https://fcn.churchcenter.com/calendar/event/201967476\">https://fcn.churchcenter.com/calendar/event/201967476</a><br>Lunch: 11am-12pm"
-  },
-  {
-    "id": "27fdleufe1uls0d0ejil1iopkn@google.com",
-    "title": "Street Car Takeover",
-    "start": "2026-10-09T00:00:00.000Z",
-    "end": "2026-10-11T00:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://streetcartakeover.com/products/sct-nashville?variant=43057854808162\">https://streetcartakeover.com/products/sct-nashville?variant=43057854808162</a><br>Car Show on Saturday"
-  },
-  {
-    "id": "7fjd4uhfa2itr8gqoeaprpqk8u@google.com",
-    "title": "All American 400 Weekend",
-    "start": "2026-11-06T00:00:00.000Z",
-    "end": "2026-11-09T00:00:00.000Z",
-    "location": "Fairgrounds Speedway Nashville, 625 Benton Ave, Nashville, TN 37203, USA",
-    "description": "<a href=\"https://nashvillefairgroundsspeedway.racing/wp-content/uploads/2025/12/2026-Nashville-Fairgrounds-Speedway-Schedule-3.pdf\">https://nashvillefairgroundsspeedway.racing/wp-content/uploads/2025/12/2026-Nashville-Fairgrounds-Speedway-Schedule-3.pdf</a>"
-  },
-  {
-    "id": "1uqd6i8h7oh49opfhsspgerdnk@google.com",
-    "title": "$5k SuperPro - Music City Raceway",
-    "start": "2026-09-05T21:00:00.000Z",
-    "end": "2026-09-06T04:59:00.000Z",
-    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
-    "description": "https://www.musiccityraceway.com/racing-schedule\nOpen: 4pm\nEliminations: 7pm to finish"
-  },
-  {
-    "id": "6r91ba0vfg65d4ogkch2infh44@google.com",
-    "title": "Nashville SummerFest",
-    "start": "2026-09-06T17:00:00.000Z",
-    "end": "2026-09-07T01:00:00.000Z",
-    "location": "625 Smith Ave, Nashville, TN 37203, USA",
-    "description": "<a href=\"https://www.facebook.com/nashvillesummerfest\">https://www.facebook.com/nashvillesummerfest</a>"
-  },
-  {
-    "id": "1oluthq0dm3anbeee0p5q5udb4@google.com",
-    "title": "Mallory's Miracle Charity Car Show",
-    "start": "2026-09-26T14:00:00.000Z",
-    "end": "2026-09-26T20:00:00.000Z",
-    "location": "Dickson County Fairgrounds, 1053 TN-47, Dickson, TN 37055, USA",
-    "description": "<a href=\"https://www.facebook.com/events/4134874210099296/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22external_search_engine%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D\">https://www.facebook.com/events/4134874210099296/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22external_search_engine%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D</a>"
-  },
-  {
-    "id": "12ujddbjjtbshupak5mbb1i7o7@google.com",
-    "title": "Triple Crown of Rodding",
-    "start": "2026-09-11T00:00:00.000Z",
-    "end": "2026-09-13T00:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "https://triplecrownofrodding.com/event-details\nFriday: 7am-5pm\nSaturday: 8am-5pm"
-  },
-  {
-    "id": "1qbbt7c1seier6dfjq8i5fana4@google.com",
-    "title": "Midway Church of Christ Car Show",
-    "start": "2026-09-19T15:00:00.000Z",
-    "end": "2026-09-19T19:00:00.000Z",
-    "location": "2665 TN-49, Charlotte, TN 37036, USA",
-    "description": "<a href=\"https://www.facebook.com/events/charlotte-tennessee/midway-church-of-christ-car-show/1767881594637637/\">https://www.facebook.com/events/charlotte-tennessee/midway-church-of-christ-car-show/1767881594637637/</a>"
-  },
-  {
-    "id": "1ap5n7lsnvj362cfm2gh2nlv19@google.com",
-    "title": "70th Middle Tennessee Region Fall Swap Meet & Car Show",
-    "start": "2026-09-12T13:00:00.000Z",
-    "end": "2026-09-12T17:00:00.000Z",
-    "location": "Thomas House, 520 E Main St, Red Boiling Springs, TN 37150, USA",
-    "description": "<a href=\"https://www.facebook.com/events/1309733721000390\">https://www.facebook.com/events/1309733721000390</a><br>Saturday: 8am - 12pm Registration, Awards at 3pm"
-  },
-  {
-    "id": "1s6mk4h4jtchdotl2mu270kvs7@google.com",
-    "title": "Music City Raceway - Test & Tune",
-    "start": "2026-09-15T23:00:00.000Z",
-    "end": "2026-09-16T04:59:00.000Z",
-    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
-    "description": "<a href=\"https://www.google.com/url?q=https://www.musiccityraceway.com/racing-schedule&amp;sa=D&amp;source=calendar&amp;ust=1788652981117750&amp;usg=AOvVaw313fALIpIy7VOEgXJL7j9V\" target=\"_blank\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens at 6pm<br>Eliminations: 8pm to finish"
-  },
-  {
-    "id": "5bal1v4hfijfgt7pvq413u3d3a@google.com",
-    "title": "TriStar NorthCrest Trunk or Treat & Car Show",
-    "start": "2026-10-30T22:00:00.000Z",
-    "end": "2026-10-31T00:00:00.000Z",
-    "location": "TriStar NorthCrest Medical Center, 100 Northcrest Dr, Springfield, TN 37172, USA",
-    "description": "<a href=\"https://www.facebook.com/events/1059277850201594/\">https://www.facebook.com/events/1059277850201594/</a>"
-  },
-  {
-    "id": "6kd92qci00lo8uc0k5bvuo22eq@google.com",
-    "title": "$2k SuperPro - Music City Raceway",
-    "start": "2026-10-24T20:00:00.000Z",
-    "end": "2026-10-25T03:59:00.000Z",
-    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
-    "description": "https://www.musiccityraceway.com/racing-schedule\nOpens: 3pm\nEliminations: 6pm to finish"
-  },
-  {
-    "id": "7kf57gd0b2vruetp9ke6061hac@google.com",
-    "title": "Music City Mopar Car Show",
-    "start": "2026-09-26T00:00:00.000Z",
-    "end": "2026-09-27T00:00:00.000Z",
-    "location": "1033 Sparta Pike, Lebanon, TN 37087, USA",
-    "description": "<a href=\"https://musiccitymoparclub.com/\">https://musiccitymoparclub.com/</a><br>Judging Starts: 9am<br>Awards: 4pm"
-  },
-  {
-    "id": "49rtfst6nd9elov0naucr3uttq@google.com",
-    "title": "Autumn Thunder Race",
-    "start": "2026-10-03T14:30:00.000Z",
+    "id": "3l5r8s2ce1tai8pd9gm84v47rf@google.com",
+    "title": "Jet Cars & $2k SuperPro - Music City Raceway",
+    "start": "2026-10-03T21:00:00.000Z",
     "end": "2026-10-04T04:59:00.000Z",
-    "location": "Fairgrounds Speedway Nashville, 625 Benton Ave, Nashville, TN 37203, USA",
-    "description": "<a href=\"https://nashvillefairgroundsspeedway.racing/wp-content/uploads/2026/08/10.3.26-SOE.docx-1.pdf\">https://nashvillefairgroundsspeedway.racing/wp-content/uploads/2026/08/10.3.26-SOE.docx-1.pdf</a><br>Practice 9:30am-4 <br>Stands open at 3pm<br>Races: 5pm-Finish"
-  },
-  {
-    "id": "50vfq26j0s1msoi43nq49a9tkq@google.com",
-    "title": "Cars & Christ Nashville",
-    "start": "2026-08-22T00:00:00.000Z",
-    "end": "2026-08-23T00:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://events.humanitix.com/cars-and-christ-nashville\">https://events.humanitix.com/cars-and-christ-nashville</a>"
-  },
-  {
-    "id": "3hipdohkfrgm806khrm4748uqt@google.com",
-    "title": "C10 Nationals",
-    "start": "2026-10-02T00:00:00.000Z",
-    "end": "2026-10-04T00:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "https://c10nationals.com/schedule-nashville/\nFriday: 7am-7pm\nSaturday: 7am-8pm"
-  },
-  {
-    "id": "6vrjjrpa9apcumlepvdmgrgmi3@google.com",
-    "title": "Donuts with duPont",
-    "start": "2026-09-26T13:00:00.000Z",
-    "end": "2026-09-26T16:00:00.000Z",
-    "location": "212 Alligood Way, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://live.dupontregistry.com/events\">https://live.dupontregistry.com/events</a>"
-  },
-  {
-    "id": "746l6kidke4g9seeino7ugmuot@google.com",
-    "title": "Import Alliance",
-    "start": "2026-10-24T00:00:00.000Z",
-    "end": "2026-10-26T00:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "https://www.importalliance.org/\nSaturday: 10am-5pm\nSunday:10am-5pm"
-  },
-  {
-    "id": "07n86htdvbrvk4ft3pk1so7t37@google.com",
-    "title": "6th Annual Sam Davis Home Car Show",
-    "start": "2026-09-12T14:00:00.000Z",
-    "end": "2026-09-12T20:00:00.000Z",
-    "location": "Sam Davis Home, 1399 Sam Davis Rd, Smyrna, TN 37167, USA",
-    "description": "<a href=\"https://www.facebook.com/events/1529368688683801?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22user_timeline%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D\">https://www.facebook.com/events/1529368688683801?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22user_timeline%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D</a><br>Awards at 3pm"
-  },
-  {
-    "id": "1sj5o86g6odjudjprqnj0dg3va@google.com",
-    "title": "TriStar NorthCrest Car Show",
-    "start": "2026-09-27T19:00:00.000Z",
-    "end": "2026-09-27T22:00:00.000Z",
-    "location": "TriStar NorthCrest Medical Center, 100 Northcrest Dr, Springfield, TN 37172, USA",
-    "description": "<a href=\"https://www.facebook.com/events/2456473404858210/\">https://www.facebook.com/events/2456473404858210/</a>"
-  },
-  {
-    "id": "1hdii8tgnad77d1tvs3acuu9ma@google.com",
-    "title": "3rd Annual Rustin' & Shinin' Car, Truck & Bike Show",
-    "start": "2026-09-05T13:00:00.000Z",
-    "end": "2026-09-05T19:30:00.000Z",
-    "location": "310 Purple Tiger Dr, Watertown, TN 37184, USA",
-    "description": "<a href=\"https://www.facebook.com/events/907015328364284/\">https://www.facebook.com/events/907015328364284/</a>"
-  },
-  {
-    "id": "0ualr87f7mc80uu4cb264q7tp4@google.com",
-    "title": "TriStar NorthCrest Car Show",
-    "start": "2026-08-30T19:00:00.000Z",
-    "end": "2026-08-30T22:00:00.000Z",
-    "location": "100 Northcrest Dr, Springfield, TN 37172, USA",
-    "description": "<a href=\"https://www.facebook.com/events/4445387672412263\">https://www.facebook.com/events/4445387672412263</a>"
-  },
-  {
-    "id": "6t0e1uns9oall37j2h387ovltm@google.com",
-    "title": "Veterans Benefit Car Show",
-    "start": "2026-09-19T13:00:00.000Z",
-    "end": "2026-09-19T17:00:00.000Z",
-    "location": "485 Oak Meadow Dr, Franklin, TN 37064, USA",
-    "description": "<a href=\"https://www.facebook.com/events/nashville-franklin-lodge-72-bpoe/veterans-benefit-show/2270481607018625/\">https://www.facebook.com/events/nashville-franklin-lodge-72-bpoe/veterans-benefit-show/2270481607018625/</a>"
-  },
-  {
-    "id": "2lmu7580hqe8vj548nmn8ingsf@google.com",
-    "title": "Nashville Cars & Coffee",
-    "start": "2026-09-05T13:00:00.000Z",
-    "end": "2026-09-05T16:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://nashvillecarsncoffee.com/#undefined\">https://nashvillecarsncoffee.com/#undefined</a>"
-  },
-  {
-    "id": "3ovikvsd1mbs4rm7e6o15k9e4m@google.com",
-    "title": "Slush Motorsport Festival",
-    "start": "2026-09-05T12:30:00.000Z",
-    "end": "2026-09-06T00:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://slushmotorsports.com/slush-nashville\">https://slushmotorsports.com/slush-nashville</a>"
-  },
-  {
-    "id": "0pr7hbdm7madijuck81iu4f38s@google.com",
-    "title": "Nolensville Auto Club Meet",
-    "start": "2026-08-18T00:00:00.000Z",
-    "end": "2026-08-19T00:00:00.000Z",
-    "location": "7344 Nolensville Rd, Nolensville, TN 37135, USA",
-    "description": "<a href=\"https://www.facebook.com/Nolensvilleautoclub/\">https://www.facebook.com/Nolensvilleautoclub/</a><br>5-8pm"
-  },
-  {
-    "id": "4jdl3eg5r3a39v068ivkt4o91f@google.com",
-    "title": "Nashville Cars & Coffee",
-    "start": "2026-10-17T13:00:00.000Z",
-    "end": "2026-10-17T16:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://nashvillecarsncoffee.com/\">https://nashvillecarsncoffee.com/</a>"
-  },
-  {
-    "id": "05tk8dmus560siknuend6g4med@google.com",
-    "title": "TriStar Fords 5th Annual All Ford Show",
-    "start": "2026-08-29T00:00:00.000Z",
-    "end": "2026-08-30T00:00:00.000Z",
-    "location": "Victory Baptist Church, 1777 Tate Ln, Mt. Juliet, TN 37122, USA",
-    "description": "<a href=\"https://www.facebook.com/brandy.hellemn.2025\">https://www.facebook.com/brandy.hellemn.2025</a><br>This is the hosts FB page. Information is found in her posts."
-  },
-  {
-    "id": "7uad6pj1j0d771gv27ap2ke4iu@google.com",
-    "title": "$2k SuperPro - Music City Raceway",
-    "start": "2026-09-12T21:00:00.000Z",
-    "end": "2026-09-13T04:59:00.000Z",
     "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
-    "description": "<a href=\"https://www.musiccityraceway.com/racing-schedule\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens: 4pm<br>Eliminations: 7pm to finish"
-  },
-  {
-    "id": "2trmdr7hrko09dcluqv4jaudtr@google.com",
-    "title": "Nashville Cars & Coffee",
-    "start": "2026-11-07T14:00:00.000Z",
-    "end": "2026-11-07T17:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://nashvillecarsncoffee.com/\">https://nashvillecarsncoffee.com/</a>"
-  },
-  {
-    "id": "3ps0snhjvbqv2snm319ep7m1vv@google.com",
-    "title": "Music City Raceway - Test & Tune",
-    "start": "2026-09-22T23:00:00.000Z",
-    "end": "2026-09-23T04:59:00.000Z",
-    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
-    "description": "<a href=\"https://www.google.com/url?q=https://www.musiccityraceway.com/racing-schedule&amp;sa=D&amp;source=calendar&amp;ust=1788652927565102&amp;usg=AOvVaw3OqgDkDn6XFSpAwM5j2w-F\" target=\"_blank\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens at 6pm<br>Eliminations: 8pm to finish"
-  },
-  {
-    "id": "3007u62ntt4jpidl3bnkkl8hcu@google.com",
-    "title": "Nashville Cars & Coffee",
-    "start": "2026-12-05T14:00:00.000Z",
-    "end": "2026-12-05T17:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://nashvillecarsncoffee.com/\">https://nashvillecarsncoffee.com/</a>"
-  },
-  {
-    "id": "0vv26jech2ukiakihgq3q8mth7@google.com",
-    "title": "SCCA Track Night",
-    "start": "2026-10-07T16:00:00.000Z",
-    "end": "2026-10-08T01:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://www.scca.com/events/2009483-track-night-2026-nashville-superspeedway-october-7\">https://www.scca.com/events/2009483-track-night-2026-nashville-superspeedway-october-7</a>"
-  },
-  {
-    "id": "08udo401enm84g5sl0muqp3u5d@google.com",
-    "title": "$2k SuperPro - Music City Raceway",
-    "start": "2026-11-07T21:00:00.000Z",
-    "end": "2026-11-08T04:59:00.000Z",
-    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
-    "description": "<a href=\"https://www.google.com/url?q=https://www.musiccityraceway.com/racing-schedule&amp;sa=D&amp;source=calendar&amp;ust=1788653529004043&amp;usg=AOvVaw2jEEX-pvMfZInCFs8D7liQ\" target=\"_blank\">https://www.musiccityraceway.com/racing-schedule</a>\nOpens: 3pm\nEliminations: 6pm to finish"
-  },
-  {
-    "id": "5ranmfq377e4986lm8juq5tbrr@google.com",
-    "title": "Music City Raceway - Test & Tune",
-    "start": "2026-09-02T00:00:00.000Z",
-    "end": "2026-09-02T04:59:00.000Z",
-    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
-    "description": "<a href=\"https://www.musiccityraceway.com/racing-schedule\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens at 7pm. Races until finished."
-  },
-  {
-    "id": "3s176cgb92ad27hkgdpd7lvv4j@google.com",
-    "title": "Clean Culture",
-    "start": "2026-11-07T21:00:00.000Z",
-    "end": "2026-11-08T03:00:00.000Z",
-    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://cleancultureevents.com/pages/nashville-tn?srsltid=AfmBOoowfd6YrHJza15ZXExzu34YPjPdcuVgrSAXqc2FjK-8QCKjcoGS\">https://cleancultureevents.com/pages/nashville-tn?srsltid=AfmBOoowfd6YrHJza15ZXExzu34YPjPdcuVgrSAXqc2FjK-8QCKjcoGS</a>"
+    "description": "<a href=\"https://www.google.com/url?q=https://www.musiccityraceway.com/racing-schedule&amp;sa=D&amp;source=calendar&amp;ust=1788653141288075&amp;usg=AOvVaw2oo2EcjANPK627hgMD1ylB\" target=\"_blank\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens: 4pm<br>Eliminations: 7pm to finish"
   },
   {
     "id": "47o1kf76qaa0fqqus9g5f2ep9m@google.com",
@@ -352,12 +16,76 @@
     "description": "<a href=\"https://www.musiccityraceway.com/racing-schedule\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens at 6pm<br>Eliminations: 8pm to finish"
   },
   {
-    "id": "5kdcrfs7dstq7fajriinjsf0rc@google.com",
-    "title": "Mecum Car Auction",
-    "start": "2026-09-22T00:00:00.000Z",
-    "end": "2026-09-27T00:00:00.000Z",
+    "id": "74cvka67be7dk80s5o1a7p94sl@google.com",
+    "title": "$2k SuperPro - Music City Raceway",
+    "start": "2026-11-14T21:00:00.000Z",
+    "end": "2026-11-15T04:59:00.000Z",
+    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
+    "description": "<a href=\"https://www.google.com/url?q=https://www.musiccityraceway.com/racing-schedule&amp;sa=D&amp;source=calendar&amp;ust=1788653529004043&amp;usg=AOvVaw2jEEX-pvMfZInCFs8D7liQ\" target=\"_blank\">https://www.musiccityraceway.com/racing-schedule</a>\nOpens: 3pm\nEliminations: 6pm to finish"
+  },
+  {
+    "id": "57tfmt3fb2fqsrsq2b7jeapik3@google.com",
+    "title": "Corvettes of Clarksville Car Show",
+    "start": "2026-09-12T15:00:00.000Z",
+    "end": "2026-09-12T19:00:00.000Z",
+    "location": "722 College St, Clarksville, TN 37040, USA",
+    "description": "<a href=\"https://www.corvettesofclarksville.com/about-1-1\">https://www.corvettesofclarksville.com/about-1-1</a>"
+  },
+  {
+    "id": "50vfq26j0s1msoi43nq49a9tkq@google.com",
+    "title": "Cars & Christ Nashville",
+    "start": "2026-08-22T00:00:00.000Z",
+    "end": "2026-08-23T00:00:00.000Z",
     "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
-    "description": "<a href=\"https://www.mecum.com/auctions/nashville-2026/?_gl=1*1fdyhr9*_up*MQ..*_gs*MQ..&amp;gclid=Cj0KCQjwve7NBhC-ARIsALZy9HXiSRbNdjXLuLq_TQEztG65DADZWTe6kERI1YrjgE42YbVyRxvVPLwaAj6OEALw_wcB&amp;gbraid=0AAAAADGW3lkT2kuea2YUPeNkaIQFIfJgj#event-schedule\">https://www.mecum.com/auctions/nashville-2026/?_gl=1*1fdyhr9*_up*MQ..*_gs*MQ..&amp;gclid=Cj0KCQjwve7NBhC-ARIsALZy9HXiSRbNdjXLuLq_TQEztG65DADZWTe6kERI1YrjgE42YbVyRxvVPLwaAj6OEALw_wcB&amp;gbraid=0AAAAADGW3lkT2kuea2YUPeNkaIQFIfJgj#event-schedule</a><br><br>8am-Close every day"
+    "description": "<a href=\"https://events.humanitix.com/cars-and-christ-nashville\">https://events.humanitix.com/cars-and-christ-nashville</a>"
+  },
+  {
+    "id": "4jdl3eg5r3a39v068ivkt4o91f@google.com",
+    "title": "Nashville Cars & Coffee",
+    "start": "2026-10-17T13:00:00.000Z",
+    "end": "2026-10-17T16:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://nashvillecarsncoffee.com/\">https://nashvillecarsncoffee.com/</a>"
+  },
+  {
+    "id": "6r91ba0vfg65d4ogkch2infh44@google.com",
+    "title": "Nashville SummerFest",
+    "start": "2026-09-06T17:00:00.000Z",
+    "end": "2026-09-07T01:00:00.000Z",
+    "location": "625 Smith Ave, Nashville, TN 37203, USA",
+    "description": "<a href=\"https://www.facebook.com/nashvillesummerfest\">https://www.facebook.com/nashvillesummerfest</a>"
+  },
+  {
+    "id": "1hdii8tgnad77d1tvs3acuu9ma@google.com",
+    "title": "3rd Annual Rustin' & Shinin' Car, Truck & Bike Show",
+    "start": "2026-09-05T13:00:00.000Z",
+    "end": "2026-09-05T19:30:00.000Z",
+    "location": "310 Purple Tiger Dr, Watertown, TN 37184, USA",
+    "description": "<a href=\"https://www.facebook.com/events/907015328364284/\">https://www.facebook.com/events/907015328364284/</a>"
+  },
+  {
+    "id": "5ranmfq377e4986lm8juq5tbrr@google.com",
+    "title": "Music City Raceway - Test & Tune",
+    "start": "2026-09-02T00:00:00.000Z",
+    "end": "2026-09-02T04:59:00.000Z",
+    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
+    "description": "<a href=\"https://www.musiccityraceway.com/racing-schedule\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens at 7pm. Races until finished."
+  },
+  {
+    "id": "2trmdr7hrko09dcluqv4jaudtr@google.com",
+    "title": "Nashville Cars & Coffee",
+    "start": "2026-11-07T14:00:00.000Z",
+    "end": "2026-11-07T17:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://nashvillecarsncoffee.com/\">https://nashvillecarsncoffee.com/</a>"
+  },
+  {
+    "id": "354o82bsc7e706l7i30kb6dmgn@google.com",
+    "title": "$5k SuperPro - Music City Raceway",
+    "start": "2026-09-26T21:00:00.000Z",
+    "end": "2026-09-27T04:59:00.000Z",
+    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
+    "description": "https://www.musiccityraceway.com/racing-schedule\nOpen: 4pm\nEliminations: 7pm to finish"
   },
   {
     "id": "099elq8viuj8u8mk7eoelp0dni@google.com",
@@ -368,12 +96,124 @@
     "description": "<a href=\"https://www.facebook.com/events/706-swan-dr-smyrna-tn-united-states-tennessee-37167/caffeine-and-chrome-gateway-classic-cars-of-nashville/1221589213435906/\">https://www.facebook.com/events/706-swan-dr-smyrna-tn-united-states-tennessee-37167/caffeine-and-chrome-gateway-classic-cars-of-nashville/1221589213435906/</a>"
   },
   {
-    "id": "3l5r8s2ce1tai8pd9gm84v47rf@google.com",
-    "title": "Jet Cars & $2k SuperPro - Music City Raceway",
-    "start": "2026-10-03T21:00:00.000Z",
-    "end": "2026-10-04T04:59:00.000Z",
+    "id": "3irj1s81ughppcagdl2dh2ri30@google.com",
+    "title": "First Church Nashville Car & Truck Show",
+    "start": "2026-09-26T13:00:00.000Z",
+    "end": "2026-09-26T19:00:00.000Z",
+    "location": "First United Pentecostal Church Of Nashville, 7512 Charlotte Pike, Nashville, TN 37209, USA",
+    "description": "<a href=\"https://www.facebook.com/photo?fbid=10238067893169316&amp;set=pcb.2578488172604119\">https://www.facebook.com/photo?fbid=10238067893169316&amp;set=pcb.2578488172604119</a><br><a href=\"https://fcn.churchcenter.com/calendar/event/201967476\">https://fcn.churchcenter.com/calendar/event/201967476</a><br>Lunch: 11am-12pm"
+  },
+  {
+    "id": "0pr7hbdm7madijuck81iu4f38s@google.com",
+    "title": "Nolensville Auto Club Meet",
+    "start": "2026-08-18T00:00:00.000Z",
+    "end": "2026-08-19T00:00:00.000Z",
+    "location": "7344 Nolensville Rd, Nolensville, TN 37135, USA",
+    "description": "<a href=\"https://www.facebook.com/Nolensvilleautoclub/\">https://www.facebook.com/Nolensvilleautoclub/</a><br>5-8pm"
+  },
+  {
+    "id": "6vrjjrpa9apcumlepvdmgrgmi3@google.com",
+    "title": "Donuts with duPont",
+    "start": "2026-09-26T13:00:00.000Z",
+    "end": "2026-09-26T16:00:00.000Z",
+    "location": "212 Alligood Way, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://live.dupontregistry.com/events\">https://live.dupontregistry.com/events</a>"
+  },
+  {
+    "id": "6t0e1uns9oall37j2h387ovltm@google.com",
+    "title": "Veterans Benefit Car Show",
+    "start": "2026-09-19T13:00:00.000Z",
+    "end": "2026-09-19T17:00:00.000Z",
+    "location": "485 Oak Meadow Dr, Franklin, TN 37064, USA",
+    "description": "<a href=\"https://www.facebook.com/events/nashville-franklin-lodge-72-bpoe/veterans-benefit-show/2270481607018625/\">https://www.facebook.com/events/nashville-franklin-lodge-72-bpoe/veterans-benefit-show/2270481607018625/</a>"
+  },
+  {
+    "id": "746l6kidke4g9seeino7ugmuot@google.com",
+    "title": "Import Alliance",
+    "start": "2026-10-24T00:00:00.000Z",
+    "end": "2026-10-26T00:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "https://www.importalliance.org/\nSaturday: 10am-5pm\nSunday:10am-5pm"
+  },
+  {
+    "id": "3ps0snhjvbqv2snm319ep7m1vv@google.com",
+    "title": "Music City Raceway - Test & Tune",
+    "start": "2026-09-22T23:00:00.000Z",
+    "end": "2026-09-23T04:59:00.000Z",
     "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
-    "description": "<a href=\"https://www.google.com/url?q=https://www.musiccityraceway.com/racing-schedule&amp;sa=D&amp;source=calendar&amp;ust=1788653141288075&amp;usg=AOvVaw2oo2EcjANPK627hgMD1ylB\" target=\"_blank\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens: 4pm<br>Eliminations: 7pm to finish"
+    "description": "<a href=\"https://www.google.com/url?q=https://www.musiccityraceway.com/racing-schedule&amp;sa=D&amp;source=calendar&amp;ust=1788652927565102&amp;usg=AOvVaw3OqgDkDn6XFSpAwM5j2w-F\" target=\"_blank\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens at 6pm<br>Eliminations: 8pm to finish"
+  },
+  {
+    "id": "12ujddbjjtbshupak5mbb1i7o7@google.com",
+    "title": "Triple Crown of Rodding",
+    "start": "2026-09-11T00:00:00.000Z",
+    "end": "2026-09-13T00:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "https://triplecrownofrodding.com/event-details\nFriday: 7am-5pm\nSaturday: 8am-5pm"
+  },
+  {
+    "id": "0vv26jech2ukiakihgq3q8mth7@google.com",
+    "title": "SCCA Track Night",
+    "start": "2026-10-07T16:00:00.000Z",
+    "end": "2026-10-08T01:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://www.scca.com/events/2009483-track-night-2026-nashville-superspeedway-october-7\">https://www.scca.com/events/2009483-track-night-2026-nashville-superspeedway-october-7</a>"
+  },
+  {
+    "id": "1ap5n7lsnvj362cfm2gh2nlv19@google.com",
+    "title": "70th Middle Tennessee Region Fall Swap Meet & Car Show",
+    "start": "2026-09-12T13:00:00.000Z",
+    "end": "2026-09-12T17:00:00.000Z",
+    "location": "Thomas House, 520 E Main St, Red Boiling Springs, TN 37150, USA",
+    "description": "<a href=\"https://www.facebook.com/events/1309733721000390\">https://www.facebook.com/events/1309733721000390</a><br>Saturday: 8am - 12pm Registration, Awards at 3pm"
+  },
+  {
+    "id": "5pcekmjhcct9t6rq7gd6qmmeav@google.com",
+    "title": "Donuts with duPont",
+    "start": "2026-08-29T00:00:00.000Z",
+    "end": "2026-08-30T00:00:00.000Z",
+    "location": "212 Alligood Way, Lebanon, TN 37090, USA",
+    "description": "8am - 11am"
+  },
+  {
+    "id": "1oluthq0dm3anbeee0p5q5udb4@google.com",
+    "title": "Mallory's Miracle Charity Car Show",
+    "start": "2026-09-26T14:00:00.000Z",
+    "end": "2026-09-26T20:00:00.000Z",
+    "location": "Dickson County Fairgrounds, 1053 TN-47, Dickson, TN 37055, USA",
+    "description": "<a href=\"https://www.facebook.com/events/4134874210099296/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22external_search_engine%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D\">https://www.facebook.com/events/4134874210099296/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22external_search_engine%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D</a>"
+  },
+  {
+    "id": "2lmu7580hqe8vj548nmn8ingsf@google.com",
+    "title": "Nashville Cars & Coffee",
+    "start": "2026-09-05T13:00:00.000Z",
+    "end": "2026-09-05T16:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://nashvillecarsncoffee.com/#undefined\">https://nashvillecarsncoffee.com/#undefined</a>"
+  },
+  {
+    "id": "58t9eakcnoj2343ip8ekim6pcd@google.com",
+    "title": "Remember When Car Show",
+    "start": "2026-09-19T15:00:00.000Z",
+    "end": "2026-09-19T19:00:00.000Z",
+    "location": "265 W Thompson Ln, Murfreesboro, TN 37129, USA",
+    "description": "<a href=\"https://www.facebook.com/photo/?fbid=1044608184860854&amp;set=a.157835036871511\">https://www.facebook.com/photo/?fbid=1044608184860854&amp;set=a.157835036871511</a>"
+  },
+  {
+    "id": "3hipdohkfrgm806khrm4748uqt@google.com",
+    "title": "C10 Nationals",
+    "start": "2026-10-02T00:00:00.000Z",
+    "end": "2026-10-04T00:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "https://c10nationals.com/schedule-nashville/\nFriday: 7am-7pm\nSaturday: 7am-8pm"
+  },
+  {
+    "id": "07n86htdvbrvk4ft3pk1so7t37@google.com",
+    "title": "6th Annual Sam Davis Home Car Show",
+    "start": "2026-09-12T14:00:00.000Z",
+    "end": "2026-09-12T20:00:00.000Z",
+    "location": "Sam Davis Home, 1399 Sam Davis Rd, Smyrna, TN 37167, USA",
+    "description": "<a href=\"https://www.facebook.com/events/1529368688683801?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22user_timeline%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D\">https://www.facebook.com/events/1529368688683801?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22user_timeline%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D</a><br>Awards at 3pm"
   },
   {
     "id": "6e8ppgkf1rnn2te6kcf0acb14t@google.com",
@@ -384,18 +224,114 @@
     "description": "<a href=\"https://www.facebook.com/events/1393236405774251\">https://www.facebook.com/events/1393236405774251</a>"
   },
   {
-    "id": "5v0ktf6f2sq7n475hgcn8o3v9r@google.com",
-    "title": "Blue Lights & Chrome Car Show",
-    "start": "2026-09-05T14:00:00.000Z",
-    "end": "2026-09-05T19:00:00.000Z",
-    "location": "Lane Agri-Park, 315 John R Rice Blvd #101, Murfreesboro, TN 37129, USA",
-    "description": "<a href=\"https://www.instagram.com/rcsosheriff/p/Db_btvnlGA1/\">https://www.instagram.com/rcsosheriff/p/Db_btvnlGA1/</a>"
+    "id": "7cuc811j0i8goni9jaog5vinbg@google.com",
+    "title": "Slyde Factory",
+    "start": "2026-10-31T00:00:00.000Z",
+    "end": "2026-11-01T00:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://www.facebook.com/slydefactory/\">https://www.facebook.com/slydefactory/</a>"
   },
   {
-    "id": "74cvka67be7dk80s5o1a7p94sl@google.com",
+    "id": "7fjd4uhfa2itr8gqoeaprpqk8u@google.com",
+    "title": "All American 400 Weekend",
+    "start": "2026-11-06T00:00:00.000Z",
+    "end": "2026-11-09T00:00:00.000Z",
+    "location": "Fairgrounds Speedway Nashville, 625 Benton Ave, Nashville, TN 37203, USA",
+    "description": "<a href=\"https://nashvillefairgroundsspeedway.racing/wp-content/uploads/2025/12/2026-Nashville-Fairgrounds-Speedway-Schedule-3.pdf\">https://nashvillefairgroundsspeedway.racing/wp-content/uploads/2025/12/2026-Nashville-Fairgrounds-Speedway-Schedule-3.pdf</a>"
+  },
+  {
+    "id": "3007u62ntt4jpidl3bnkkl8hcu@google.com",
+    "title": "Nashville Cars & Coffee",
+    "start": "2026-12-05T14:00:00.000Z",
+    "end": "2026-12-05T17:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://nashvillecarsncoffee.com/\">https://nashvillecarsncoffee.com/</a>"
+  },
+  {
+    "id": "3gark60q27mkr3gjdh43lvoe2h@google.com",
+    "title": "Music City Raceway - Test & Tune",
+    "start": "2026-09-08T23:00:00.000Z",
+    "end": "2026-09-09T04:59:00.000Z",
+    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
+    "description": "<a href=\"https://www.google.com/url?q=https://www.musiccityraceway.com/racing-schedule&amp;sa=D&amp;source=calendar&amp;ust=1788652996699789&amp;usg=AOvVaw0lfwrw6NNAlwjp7qvJAuue\" target=\"_blank\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens at 6pm<br>Eliminations: 8pm to finish"
+  },
+  {
+    "id": "6usq11lq4l2frqmnlsn6adj054@google.com",
+    "title": "NASAville Thanksgiving Run Racing",
+    "start": "2026-11-13T00:00:00.000Z",
+    "end": "2026-11-16T00:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://members.drivenasa.com/events/5352\">https://members.drivenasa.com/events/5352</a>"
+  },
+  {
+    "id": "27fdleufe1uls0d0ejil1iopkn@google.com",
+    "title": "Street Car Takeover",
+    "start": "2026-10-09T00:00:00.000Z",
+    "end": "2026-10-11T00:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://streetcartakeover.com/products/sct-nashville?variant=43057854808162\">https://streetcartakeover.com/products/sct-nashville?variant=43057854808162</a><br>Car Show on Saturday"
+  },
+  {
+    "id": "3ovikvsd1mbs4rm7e6o15k9e4m@google.com",
+    "title": "Slush Motorsport Festival",
+    "start": "2026-09-05T12:30:00.000Z",
+    "end": "2026-09-06T00:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://slushmotorsports.com/slush-nashville\">https://slushmotorsports.com/slush-nashville</a>"
+  },
+  {
+    "id": "3s176cgb92ad27hkgdpd7lvv4j@google.com",
+    "title": "Clean Culture",
+    "start": "2026-11-07T21:00:00.000Z",
+    "end": "2026-11-08T03:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://cleancultureevents.com/pages/nashville-tn?srsltid=AfmBOoowfd6YrHJza15ZXExzu34YPjPdcuVgrSAXqc2FjK-8QCKjcoGS\">https://cleancultureevents.com/pages/nashville-tn?srsltid=AfmBOoowfd6YrHJza15ZXExzu34YPjPdcuVgrSAXqc2FjK-8QCKjcoGS</a>"
+  },
+  {
+    "id": "5bal1v4hfijfgt7pvq413u3d3a@google.com",
+    "title": "TriStar NorthCrest Trunk or Treat & Car Show",
+    "start": "2026-10-30T22:00:00.000Z",
+    "end": "2026-10-31T00:00:00.000Z",
+    "location": "TriStar NorthCrest Medical Center, 100 Northcrest Dr, Springfield, TN 37172, USA",
+    "description": "<a href=\"https://www.facebook.com/events/1059277850201594/\">https://www.facebook.com/events/1059277850201594/</a>"
+  },
+  {
+    "id": "1qbbt7c1seier6dfjq8i5fana4@google.com",
+    "title": "Midway Church of Christ Car Show",
+    "start": "2026-09-19T15:00:00.000Z",
+    "end": "2026-09-19T19:00:00.000Z",
+    "location": "2665 TN-49, Charlotte, TN 37036, USA",
+    "description": "<a href=\"https://www.facebook.com/events/charlotte-tennessee/midway-church-of-christ-car-show/1767881594637637/\">https://www.facebook.com/events/charlotte-tennessee/midway-church-of-christ-car-show/1767881594637637/</a>"
+  },
+  {
+    "id": "1s6mk4h4jtchdotl2mu270kvs7@google.com",
+    "title": "Music City Raceway - Test & Tune",
+    "start": "2026-09-15T23:00:00.000Z",
+    "end": "2026-09-16T04:59:00.000Z",
+    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
+    "description": "<a href=\"https://www.google.com/url?q=https://www.musiccityraceway.com/racing-schedule&amp;sa=D&amp;source=calendar&amp;ust=1788652981117750&amp;usg=AOvVaw313fALIpIy7VOEgXJL7j9V\" target=\"_blank\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens at 6pm<br>Eliminations: 8pm to finish"
+  },
+  {
+    "id": "1uqd6i8h7oh49opfhsspgerdnk@google.com",
+    "title": "$5k SuperPro - Music City Raceway",
+    "start": "2026-09-05T21:00:00.000Z",
+    "end": "2026-09-06T04:59:00.000Z",
+    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
+    "description": "https://www.musiccityraceway.com/racing-schedule\nOpen: 4pm\nEliminations: 7pm to finish"
+  },
+  {
+    "id": "6kd92qci00lo8uc0k5bvuo22eq@google.com",
     "title": "$2k SuperPro - Music City Raceway",
-    "start": "2026-11-14T21:00:00.000Z",
-    "end": "2026-11-15T04:59:00.000Z",
+    "start": "2026-10-24T20:00:00.000Z",
+    "end": "2026-10-25T03:59:00.000Z",
+    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
+    "description": "https://www.musiccityraceway.com/racing-schedule\nOpens: 3pm\nEliminations: 6pm to finish"
+  },
+  {
+    "id": "08udo401enm84g5sl0muqp3u5d@google.com",
+    "title": "$2k SuperPro - Music City Raceway",
+    "start": "2026-11-07T21:00:00.000Z",
+    "end": "2026-11-08T04:59:00.000Z",
     "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
     "description": "<a href=\"https://www.google.com/url?q=https://www.musiccityraceway.com/racing-schedule&amp;sa=D&amp;source=calendar&amp;ust=1788653529004043&amp;usg=AOvVaw2jEEX-pvMfZInCFs8D7liQ\" target=\"_blank\">https://www.musiccityraceway.com/racing-schedule</a>\nOpens: 3pm\nEliminations: 6pm to finish"
   },
@@ -406,5 +342,69 @@
     "end": "2026-08-16T00:00:00.000Z",
     "location": "6100 E Division St, Lebanon, TN 37090, USA",
     "description": "<a href=\"https://www.facebook.com/events/6100-east-division-street-lebanon-tn-usa/jax-wax-lebanon-car-meet-up/2272089990311694/\">https://www.facebook.com/events/6100-east-division-street-lebanon-tn-usa/jax-wax-lebanon-car-meet-up/2272089990311694/</a>"
+  },
+  {
+    "id": "05tk8dmus560siknuend6g4med@google.com",
+    "title": "TriStar Fords 5th Annual All Ford Show",
+    "start": "2026-08-29T00:00:00.000Z",
+    "end": "2026-08-30T00:00:00.000Z",
+    "location": "Victory Baptist Church, 1777 Tate Ln, Mt. Juliet, TN 37122, USA",
+    "description": "<a href=\"https://www.facebook.com/brandy.hellemn.2025\">https://www.facebook.com/brandy.hellemn.2025</a><br>This is the hosts FB page. Information is found in her posts."
+  },
+  {
+    "id": "5v0ktf6f2sq7n475hgcn8o3v9r@google.com",
+    "title": "Blue Lights & Chrome Car Show",
+    "start": "2026-09-05T14:00:00.000Z",
+    "end": "2026-09-05T19:00:00.000Z",
+    "location": "Lane Agri-Park, 315 John R Rice Blvd #101, Murfreesboro, TN 37129, USA",
+    "description": "<a href=\"https://www.instagram.com/rcsosheriff/p/Db_btvnlGA1/\">https://www.instagram.com/rcsosheriff/p/Db_btvnlGA1/</a>"
+  },
+  {
+    "id": "7kf57gd0b2vruetp9ke6061hac@google.com",
+    "title": "Music City Mopar Car Show",
+    "start": "2026-09-26T00:00:00.000Z",
+    "end": "2026-09-27T00:00:00.000Z",
+    "location": "1033 Sparta Pike, Lebanon, TN 37087, USA",
+    "description": "<a href=\"https://musiccitymoparclub.com/\">https://musiccitymoparclub.com/</a><br>Judging Starts: 9am<br>Awards: 4pm"
+  },
+  {
+    "id": "0ualr87f7mc80uu4cb264q7tp4@google.com",
+    "title": "TriStar NorthCrest Car Show",
+    "start": "2026-08-30T19:00:00.000Z",
+    "end": "2026-08-30T22:00:00.000Z",
+    "location": "100 Northcrest Dr, Springfield, TN 37172, USA",
+    "description": "<a href=\"https://www.facebook.com/events/4445387672412263\">https://www.facebook.com/events/4445387672412263</a>"
+  },
+  {
+    "id": "5kdcrfs7dstq7fajriinjsf0rc@google.com",
+    "title": "Mecum Car Auction",
+    "start": "2026-09-22T00:00:00.000Z",
+    "end": "2026-09-27T00:00:00.000Z",
+    "location": "Nashville Superspeedway, 400 Victory Ln Dr, Lebanon, TN 37090, USA",
+    "description": "<a href=\"https://www.mecum.com/auctions/nashville-2026/?_gl=1*1fdyhr9*_up*MQ..*_gs*MQ..&amp;gclid=Cj0KCQjwve7NBhC-ARIsALZy9HXiSRbNdjXLuLq_TQEztG65DADZWTe6kERI1YrjgE42YbVyRxvVPLwaAj6OEALw_wcB&amp;gbraid=0AAAAADGW3lkT2kuea2YUPeNkaIQFIfJgj#event-schedule\">https://www.mecum.com/auctions/nashville-2026/?_gl=1*1fdyhr9*_up*MQ..*_gs*MQ..&amp;gclid=Cj0KCQjwve7NBhC-ARIsALZy9HXiSRbNdjXLuLq_TQEztG65DADZWTe6kERI1YrjgE42YbVyRxvVPLwaAj6OEALw_wcB&amp;gbraid=0AAAAADGW3lkT2kuea2YUPeNkaIQFIfJgj#event-schedule</a><br><br>8am-Close every day"
+  },
+  {
+    "id": "49rtfst6nd9elov0naucr3uttq@google.com",
+    "title": "Autumn Thunder Race",
+    "start": "2026-10-03T14:30:00.000Z",
+    "end": "2026-10-04T04:59:00.000Z",
+    "location": "Fairgrounds Speedway Nashville, 625 Benton Ave, Nashville, TN 37203, USA",
+    "description": "<a href=\"https://nashvillefairgroundsspeedway.racing/wp-content/uploads/2026/08/10.3.26-SOE.docx-1.pdf\">https://nashvillefairgroundsspeedway.racing/wp-content/uploads/2026/08/10.3.26-SOE.docx-1.pdf</a><br>Practice 9:30am-4 <br>Stands open at 3pm<br>Races: 5pm-Finish"
+  },
+  {
+    "id": "7uad6pj1j0d771gv27ap2ke4iu@google.com",
+    "title": "$2k SuperPro - Music City Raceway",
+    "start": "2026-09-12T21:00:00.000Z",
+    "end": "2026-09-13T04:59:00.000Z",
+    "location": "Music City Raceway, 3302 Ivey Point Rd, Goodlettsville, TN 37072, USA",
+    "description": "<a href=\"https://www.musiccityraceway.com/racing-schedule\">https://www.musiccityraceway.com/racing-schedule</a><br>Opens: 4pm<br>Eliminations: 7pm to finish"
+  },
+  {
+    "id": "1sj5o86g6odjudjprqnj0dg3va@google.com",
+    "title": "TriStar NorthCrest Car Show",
+    "start": "2026-09-27T19:00:00.000Z",
+    "end": "2026-09-27T22:00:00.000Z",
+    "location": "TriStar NorthCrest Medical Center, 100 Northcrest Dr, Springfield, TN 37172, USA",
+    "description": "<a href=\"https://www.facebook.com/events/2456473404858210/\">https://www.facebook.com/events/2456473404858210/</a>"
   }
 ]
